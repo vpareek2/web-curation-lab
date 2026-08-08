@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+
+# Editors and operating systems
+.DS_Store
+.idea/
+.vscode/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Generated data and experiment artifacts
+data/
+outputs/
+checkpoints/
+logs/
+wandb/
+tensorboard/
+
+# Profiling and compiled artifacts
+*.pt.trace.json
+*.nsys-rep
+*.sqlite
+torch_compile_debug/

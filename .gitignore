@@ -18,12 +18,12 @@ __pycache__/
 !.env.example
 
 # Generated data and experiment artifacts
-data/
-outputs/
-checkpoints/
-logs/
-wandb/
-tensorboard/
+/data/
+/outputs/
+/checkpoints/
+/logs/
+/wandb/
+/tensorboard/
 
 # Profiling and compiled artifacts
 *.pt.trace.json

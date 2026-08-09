@@ -8,6 +8,9 @@ from functools import cache
 import torch
 
 
+_FLASH_ATTENTION_3_INTERFACE = None
+
+
 @cache
 def _get_flash_attention_3_interface():
     """Load and cache the versioned Hopper FA3 binary before compilation."""
@@ -41,7 +44,14 @@ def _flash_attention_3_varlen_forward(
     k_TNH = k_BLNH.reshape(B * L, -1, H).to(torch.bfloat16)
     v_TNH = v_BLNH.reshape(B * L, -1, H).to(torch.bfloat16)
 
-    result = _get_flash_attention_3_interface().flash_attn_varlen_func(
+    # This function is called from compiled Transformer blocks. Do not call the
+    # cache-decorated loader here: Dynamo traces through cache wrappers and then
+    # attempts to trace the kernel package's host-system inspection. The loader
+    # is eagerly resolved by ``enable_prebuilt_hopper_fa3`` instead.
+    if _FLASH_ATTENTION_3_INTERFACE is None:
+        raise RuntimeError("Prebuilt Hopper FA3 was not initialized")
+
+    result = _FLASH_ATTENTION_3_INTERFACE.flash_attn_varlen_func(
         q_TNH,
         k_TNH,
         v_TNH,
@@ -78,10 +88,12 @@ def enable_prebuilt_hopper_fa3() -> None:
     from torchtitan.models.common.attention import VarlenAttention
     from torchtitan.tools import utils as titan_utils
 
+    global _FLASH_ATTENTION_3_INTERFACE
+
     if getattr(VarlenAttention, "_web_curation_uses_prebuilt_fa3", False):
         return
 
-    _get_flash_attention_3_interface()
+    _FLASH_ATTENTION_3_INTERFACE = _get_flash_attention_3_interface()
 
     # Avoid Torch's incompatible auto-activation path; forward() below uses
     # the prebuilt FA3 operator directly.

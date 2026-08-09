@@ -10,6 +10,10 @@ from torchtitan.models.common.decoder import Decoder, TransformerBlock
 from torchtitan.models.gpt_oss.model import Attention, GptOssModel
 from torchtitan.models.utils import get_dense_model_nparams_and_flops
 
+from .attention_compat import enable_prebuilt_hopper_fa3
+
+enable_prebuilt_hopper_fa3()
+
 
 class DenseGptOssTransformerBlock(TransformerBlock):
     """GPT-OSS attention followed by a dense SwiGLU feed-forward network."""

@@ -9,6 +9,12 @@ dependencies = [
     "torchtitan",
 ]
 
+[project.optional-dependencies]
+hybrid = [
+    "flash-linear-attention==0.5.2",
+    "kernels==0.16.0",
+]
+
 [dependency-groups]
 dev = [
     "pytest>=8.0",

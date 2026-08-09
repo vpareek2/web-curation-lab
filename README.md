@@ -14,7 +14,7 @@ This project uses [uv](https://docs.astral.sh/uv/) for Python environments,
 dependency management, and command execution.
 
 ```bash
-uv sync --group dev
+uv sync --group dev --extra hybrid
 uv run python scripts/download_tokenizer.py
 uv run pytest
 ```
@@ -79,8 +79,7 @@ uv run torchrun \
 
 For a short cloud smoke test, append `--training.steps 20`.
 
-The Qwen3.5 variants additionally require TorchTitan's optional CUDA dependency:
-
-```bash
-uv pip install flash-linear-attention
-```
+The `hybrid` extra provides the Qwen3.5 variants' Flash Linear Attention
+dependency and the prebuilt Hopper FlashAttention-3 kernel used by every
+varlen-attention recipe. It is included in the development setup above; omit
+it only when working exclusively with the dense Qwen3 recipes.

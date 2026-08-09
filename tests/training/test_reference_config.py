@@ -132,9 +132,9 @@ def test_reference_torchtitan_model_build() -> None:
 
     import torch
 
-    from web_curation_lab.training.models import model_registry
+    from web_curation_lab.training.models import qwen3_model_registry
 
-    model_spec = model_registry("qwen3_150m_reference")
+    model_spec = qwen3_model_registry("qwen3_150m_reference")
     with torch.device("meta"):
         model = model_spec.model.build()
 
@@ -147,9 +147,9 @@ def test_wide_torchtitan_model_build() -> None:
 
     import torch
 
-    from web_curation_lab.training.models import model_registry
+    from web_curation_lab.training.models import qwen3_model_registry
 
-    model_spec = model_registry("qwen3_150m_wide")
+    model_spec = qwen3_model_registry("qwen3_150m_wide")
     with torch.device("meta"):
         model = model_spec.model.build()
 

@@ -7,6 +7,10 @@ from dataclasses import dataclass
 from torchtitan.models.common.decoder import Decoder
 from torchtitan.models.qwen3_5.model import Qwen35Model
 
+from .attention_compat import enable_prebuilt_hopper_fa3
+
+enable_prebuilt_hopper_fa3()
+
 
 class TextQwen35Model(Qwen35Model):
     """Qwen3.5 hybrid decoder without the unused vision tower."""

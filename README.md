@@ -58,6 +58,11 @@ output-gated attention, partial RoPE, and 2x-width key/value mixer states. The
 `varlen` attention backend is mandatory so recurrent and convolution state is
 reset between packed documents.
 
+The current Flash Linear Attention causal-convolution kernel is not compatible
+with `torch.compile`, so Qwen3.5 recipes compile only cross-entropy and run the
+model eagerly. Record that distinction when comparing their throughput with the
+compiled dense recipes.
+
 The dense GPT-OSS variants alternate 128-token sliding-window and global
 attention layers. They use TorchTitan's GPT-OSS attention implementation,
 including learned per-head attention sinks and biased QKV/output projections,

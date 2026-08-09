@@ -1535,6 +1535,7 @@ name = "web-curation-lab"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "huggingface-hub" },
     { name = "torchtitan" },
 ]
 
@@ -1545,7 +1546,10 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "torchtitan", editable = "third_party/torchtitan" }]
+requires-dist = [
+    { name = "huggingface-hub" },
+    { name = "torchtitan", editable = "third_party/torchtitan" },
+]
 
 [package.metadata.requires-dev]
 dev = [

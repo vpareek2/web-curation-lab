@@ -5,6 +5,7 @@ description = "Progressive web-data curation experiments for small language mode
 readme = "README.md"
 requires-python = ">=3.11,<3.13"
 dependencies = [
+    "huggingface-hub",
     "torchtitan",
 ]
 

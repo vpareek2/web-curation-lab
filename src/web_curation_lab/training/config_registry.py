@@ -35,11 +35,13 @@ def _benchmark_config(model_flavor: str, *, family: str = "qwen3") -> Trainer.Co
     }
     registry = registries[family]
     model_spec = registry(model_flavor)
-    # flash-linear-attention's varlen causal-convolution autograd kernel is
-    # explicitly excluded from torch.compile. Keep the Qwen3.5 model eager so
-    # it runs correctly, while retaining compiled cross-entropy. The dense
-    # Qwen3 and GPT-OSS recipes compile each Transformer block as normal.
-    compile_components = ["loss"] if family == "qwen3_5" else ["model", "loss"]
+    # FLA's causal-convolution and the prebuilt Hopper FA3 wheel both use
+    # custom autograd functions that PyTorch 2.13 cannot compile. Keep those
+    # model families eager while retaining compiled cross-entropy. The plain
+    # Qwen3 recipes compile each Transformer block as normal.
+    compile_components = (
+        ["loss"] if family in {"qwen3_5", "gpt_oss_dense"} else ["model", "loss"]
+    )
     return Trainer.Config(
         model_spec=model_spec,
         hf_assets_path=HF_ASSETS_PATH,

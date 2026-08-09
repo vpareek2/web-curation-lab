@@ -76,6 +76,19 @@ def test_hybrid_training_only_compiles_the_loss() -> None:
     assert config.compile.components == ["loss"]
 
 
+def test_dense_gpt_oss_training_only_compiles_the_loss() -> None:
+    pytest.importorskip("triton", reason=TRITON_REQUIRED)
+
+    from web_curation_lab.training.config_registry import (
+        curation_gpt_oss_dense_150m_reference,
+    )
+
+    config = curation_gpt_oss_dense_150m_reference()
+
+    assert config.compile.enable
+    assert config.compile.components == ["loss"]
+
+
 def test_dense_gpt_oss_architectures() -> None:
     assert GPT_OSS_DENSE_REFERENCE_150M.sliding_window_size == 128
     assert GPT_OSS_DENSE_REFERENCE_150M.num_sliding_window_layers == 8

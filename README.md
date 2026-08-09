@@ -58,10 +58,11 @@ output-gated attention, partial RoPE, and 2x-width key/value mixer states. The
 `varlen` attention backend is mandatory so recurrent and convolution state is
 reset between packed documents.
 
-The current Flash Linear Attention causal-convolution kernel is not compatible
-with `torch.compile`, so Qwen3.5 recipes compile only cross-entropy and run the
-model eagerly. Record that distinction when comparing their throughput with the
-compiled dense recipes.
+The current Flash Linear Attention causal-convolution kernel and prebuilt
+Hopper FlashAttention-3 wheel are not compatible with `torch.compile` on
+PyTorch 2.13. Qwen3.5 and GPT-OSS recipes therefore compile only
+cross-entropy and run the model eagerly. Record that distinction when comparing
+their throughput with the compiled Qwen3 recipes.
 
 The dense GPT-OSS variants alternate 128-token sliding-window and global
 attention layers. They use TorchTitan's GPT-OSS attention implementation,

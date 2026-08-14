@@ -1,0 +1,384 @@
+# Comprehensive vLLM throughput benchmark configuration
+#
+# TIERED APPROACH: Run tiers sequentially, use winners from each tier to inform the next.
+#
+# Tiers:
+#   0. Parallelism and Batching (tp, mns, mnbt) - Find optimal parallelism and batch sizes.
+#   1. SpecDec and GMU (speculative-config, gmu) - Lossless speedup and memory utilization.
+#
+# Model size categories:
+#   - Tiny:     <1B params
+#   - Small:    1B-10B params
+#   - Medium:   10B-100B params
+#   - Large:    100B-500B params
+#   - Enormous: >500B params (leaving out for now, potential models to test are: GLM-4.7, DeepSeek-V3.1, Kimi-K2-Instruct)
+#
+# Launch with:
+#   python examples/inference/benchmark/launch_experiments.py --config examples/inference/benchmark/sample_benchmark_config.yaml
+#
+# Dry run (no submission):
+#   python examples/inference/benchmark/launch_experiments.py --config examples/inference/benchmark/sample_benchmark_config.yaml --dry-run
+
+script: "examples/inference/generate_data.py"
+continue_on_failure: true
+
+# Fixed arguments applied to all runs
+fixed_args:
+  benchmark-mode: true
+  qos: "high"
+  time: "1:59:00" # Fairly low because we are only interested in the best configurations, so we just let bad ones time out
+
+  model-max-context: 8192 # So we can also test SmolLM2
+  max-tokens: 4096
+
+  input-dataset-name: "HuggingFaceFW/fineweb-edu"
+  input-dataset-config: "sample-10BT"
+  input-dataset-split: "train"
+  prompt-column: "text"
+  prompt-template: ["tutorial", "Rewrite the document as a clear, step-by-step tutorial or instructional guide. Use numbered steps or bullet points where appropriate to enhance clarity. Preserve all essential information while ensuring the style feels didactic and easy to follow. Output only the tutorial, nothing else.\n\nDocument: [[DOCUMENT]]"]
+  max-examples: 10000 # To make sure we have at least 2.5x the max-num-seqs
+
+  output-dataset-name: "fineweb-edu-benchmark"
+  output-dir: "examples/inference/benchmark/results"
+  
+  # Make benchmark reproducible
+  seed: 42
+  temperature: 0.0
+
+  # Ensure pipeline is not bottlenecked by concurrency limits
+  max-concurrent-generations: 5000
+  max-concurrent-documents: 5000
+
+  workers: 1
+  tasks: 1
+  trust-remote-code: true
+
+# =============================================================================
+# TIER 0: PARALLELISM AND BATCHING (tp, mns, mnbt)
+# =============================================================================
+# Goal: Find optimal parallelism and batch size configuration.
+# This is the HIGHEST IMPACT lever - how many sequences can we push through?
+#
+# tp: Tensor parallelism - split model across GPUs
+# max-num-seqs: How many sequences can be batched together
+# max-num-batched-tokens: Total tokens per forward pass (prefill + decode)
+# =============================================================================
+experiments:
+  # --- TINY (<1B) - Should fit easily on 1 GPU ---
+  - name: "tier0-tiny"
+    args:
+      model-name-or-path:
+        - "HuggingFaceTB/SmolLM2-135M-Instruct"  # 0.135B
+        - "HuggingFaceTB/SmolLM2-360M-Instruct"  # 0.6B
+        - "google/gemma-3-270m-it"  # 270M
+        - "Qwen/Qwen3-0.6B"  # 0.6B
+      tp: [1]
+      max-num-seqs: [256, 512, 1024, 2048, 4096]
+      max-num-batched-tokens: [8192, 16384, 32768]
+
+  # --- SMALL (1B-10B) - Should fit on 1-2 GPUs ---
+  - name: "tier0-small"
+    args:
+      model-name-or-path:
+        - "HuggingFaceTB/SmolLM2-1.7B-Instruct"  # 1.35B
+        - "google/gemma-3-1b-it"  # 1B
+        - "google/gemma-3-4b-it"  # 4B
+        - "Qwen/Qwen3-1.7B"  # 1.7B
+        - "Qwen/Qwen3-4B"  # 4B
+        - "Qwen/Qwen3-8B"  # 8B
+      tp: [1, 2]
+      max-num-seqs: [256, 512, 1024, 2048, 4096]
+      max-num-batched-tokens: [8192, 16384, 32768]
+
+  # --- MEDIUM (10B-100B) - Likely needs multiple GPUs ---
+  - name: "tier0-medium"
+    args:
+      model-name-or-path:
+        - "google/gemma-3-12b-it"  # 12B
+        - "google/gemma-3-27b-it"  # 27B
+        - "Qwen/Qwen3-14B"  # 14B
+        - "Qwen/Qwen3-32B"  # 32B
+        - "Qwen/Qwen3-30B-A3B-Thinking-2507"  # 30B-A3B MoE
+        - "Qwen/Qwen3-Next-80B-A3B-Thinking"  # 80B-A3B MoE
+        - "openai/gpt-oss-20b"  # 20B-A2B MoE
+      tp: [1, 2, 4]
+      max-num-seqs: [256, 512, 1024, 2048, 4096]
+      max-num-batched-tokens: [8192, 16384, 32768]
+
+  # --- LARGE (100B-500B) - Definitely needs multiple GPUs ---
+  - name: "tier0-large"
+    args:
+      model-name-or-path: 
+        - "openai/gpt-oss-120b"  # 120B-A12B MoE
+      tp: [1, 2, 4, 8]
+      max-num-seqs: [256, 512, 1024, 2048, 4096]
+      max-num-batched-tokens: [8192, 16384, 32768]
+
+# =============================================================================
+# TIER 1: SPECDEC AND GMU (speculative-config, gmu)
+# =============================================================================
+# Goal: Achieve LOSSLESS speedup through speculative decoding and memory tuning.
+# Especially beneficial for large models where decode is memory-bound.
+#
+# speculative-config: Speculative decoding configuration
+#   - ngram: Uses prompt n-grams to speculate tokens (good for extraction/summarization)
+#   - suffix: Uses suffix matching from input (good when output resembles input)
+# gpu-memory-utilization: Fraction of GPU memory to use (higher = larger KV cache)
+#
+# Uncomment after Tier 0 completes. Use optimal config from previous tier.
+# =============================================================================
+  # --- TINY (<1B) ---
+  # SmolLM2-135M: mns=512, mnbt=32768
+  - name: "tier1-tiny"
+    args:
+      model-name-or-path: "HuggingFaceTB/SmolLM2-135M-Instruct"  # 0.135B
+      tp: 1
+      max-num-seqs: 512
+      max-num-batched-tokens: 32768
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'
+
+  # SmolLM2-360M: mns=512
+  - name: "tier1-tiny"
+    args:
+      model-name-or-path: "HuggingFaceTB/SmolLM2-360M-Instruct"  # 0.36B
+      tp: 1
+      max-num-seqs: 512
+      max-num-batched-tokens: 8192
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'
+
+  # gemma-3-270m: mnbt=32768
+  - name: "tier1-tiny"
+    args:
+      model-name-or-path: "google/gemma-3-270m-it"  # 270M
+      tp: 1
+      max-num-seqs: 256
+      max-num-batched-tokens: 32768
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'
+
+  # Qwen3-0.6B: mns=512
+  - name: "tier1-tiny"
+    args:
+      model-name-or-path: "Qwen/Qwen3-0.6B"  # 0.6B
+      tp: 1
+      max-num-seqs: 512
+      max-num-batched-tokens: 8192
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'
+
+  # --- SMALL (1B-10B) ---
+  # SmolLM2-1.7B: mns=2048, mnbt=32768
+  - name: "tier1-small"
+    args:
+      model-name-or-path: "HuggingFaceTB/SmolLM2-1.7B-Instruct"  # 1.7B
+      tp: 1
+      max-num-seqs: 2048
+      max-num-batched-tokens: 32768
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'
+
+  # gemma-3-1b: mns=4096, mnbt=32768
+  - name: "tier1-small"
+    args:
+      model-name-or-path: "google/gemma-3-1b-it"  # 1B
+      tp: 1
+      max-num-seqs: 4096
+      max-num-batched-tokens: 32768
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'
+
+  # gemma-3-4b: mns=1024, mnbt=32768
+  - name: "tier1-small"
+    args:
+      model-name-or-path: "google/gemma-3-4b-it"  # 4B
+      tp: 1
+      max-num-seqs: 1024
+      max-num-batched-tokens: 32768
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'
+
+  # Qwen3-1.7B: mnbt=32768
+  - name: "tier1-small"
+    args:
+      model-name-or-path: "Qwen/Qwen3-1.7B"  # 1.7B
+      tp: 1
+      max-num-seqs: 256
+      max-num-batched-tokens: 32768
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'
+
+  # Qwen3-4B: mnbt=32768
+  - name: "tier1-small"
+    args:
+      model-name-or-path: "Qwen/Qwen3-4B"  # 4B
+      tp: 1
+      max-num-seqs: 256
+      max-num-batched-tokens: 32768
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'
+
+  # Qwen3-8B: baseline is optimal (tp=1, mns=256, mnbt=8192)
+  - name: "tier1-small"
+    args:
+      model-name-or-path: "Qwen/Qwen3-8B"  # 8B
+      tp: 1
+      max-num-seqs: 256
+      max-num-batched-tokens: 8192
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'
+
+  # --- MEDIUM (10B-100B) ---
+  # gemma-3-12b: baseline is optimal (tp=1, mns=256, mnbt=8192)
+  - name: "tier1-medium"
+    args:
+      model-name-or-path: "google/gemma-3-12b-it"  # 12B
+      tp: 1
+      max-num-seqs: 256
+      max-num-batched-tokens: 8192
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'
+
+  # gemma-3-27b: baseline is optimal (tp=2, mns=256, mnbt=8192)
+  - name: "tier1-medium"
+    args:
+      model-name-or-path: "google/gemma-3-27b-it"  # 27B
+      tp: 2
+      max-num-seqs: 256
+      max-num-batched-tokens: 8192
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'
+
+  # Qwen3-14B: tp=2
+  - name: "tier1-medium"
+    args:
+      model-name-or-path: "Qwen/Qwen3-14B"  # 14B
+      tp: 2
+      max-num-seqs: 256
+      max-num-batched-tokens: 8192
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'
+
+  # Qwen3-32B: tp=4, mns=512, mnbt=16384
+  - name: "tier1-medium"
+    args:
+      model-name-or-path: "Qwen/Qwen3-32B"  # 32B
+      tp: 4
+      max-num-seqs: 512
+      max-num-batched-tokens: 16384
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'
+
+  # Qwen3-30B-A3B: tp=2, mns=512, mnbt=32768
+  - name: "tier1-medium"
+    args:
+      model-name-or-path: "Qwen/Qwen3-30B-A3B-Thinking-2507"  # 30B-A3B MoE
+      tp: 2
+      max-num-seqs: 512
+      max-num-batched-tokens: 32768
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'
+
+  # Qwen3-Next-80B-A3B: tp=4, mns=512
+  - name: "tier1-medium"
+    args:
+      model-name-or-path: "Qwen/Qwen3-Next-80B-A3B-Thinking"  # 80B-A3B MoE
+      tp: 4
+      max-num-seqs: 512
+      max-num-batched-tokens: 8192
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'
+
+  # gpt-oss-20b: mns=512, mnbt=16384
+  - name: "tier1-medium"
+    args:
+      model-name-or-path: "openai/gpt-oss-20b"  # 20B-A2B MoE
+      tp: 1
+      max-num-seqs: 512
+      max-num-batched-tokens: 16384
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'
+
+  # --- LARGE (100B-500B) - Spec dec especially helpful here ---
+  # gpt-oss-120b: tp=2, mns=1024, mnbt=32768
+  - name: "tier1-large"
+    args:
+      model-name-or-path: "openai/gpt-oss-120b"  # 120B-A12B MoE
+      tp: 2
+      max-num-seqs: 1024
+      max-num-batched-tokens: 32768
+      gpu-memory-utilization: [0.9, 0.95]
+      speculative-config:
+        - None
+        - '{"method": "ngram", "num_speculative_tokens": 6}'
+        - '{"method": "ngram", "num_speculative_tokens": 8}'
+        - '{"method": "suffix", "num_speculative_tokens": 32}'

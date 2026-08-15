@@ -82,3 +82,44 @@ Next:
 - The temporary node can be torn down.
 - Before the 100B run, increase batch size on the target eight-GPU topology and
   measure a longer steady-state window after compilation.
+
+## 2026-08-14 [codex] Two-H100 Muon preflight blocked on driver version
+
+Context:
+
+- Provisioned a two-H100 preparation node for mixed Muon/AdamW correctness,
+  batch tuning, and raw-crawl processing preflight.
+- Verified two full-power 80GB H100 SXM GPUs connected by bonded NVLink, 52
+  vCPUs, 442 GiB RAM, and 5.4 TiB free local storage.
+- Published and checked out project commit `f58e7b24`, then installed the
+  frozen root uv environment.
+
+Commands:
+
+```bash
+cd /path/to/web-curation-lab
+uv sync --frozen --group dev
+uv run --frozen python -c 'import torch; print(torch.__version__, torch.version.cuda, torch.cuda.is_available())'
+```
+
+Artifacts:
+
+- Project commit: `f58e7b24`
+- No training artifact was created because CUDA initialization failed before
+  model construction.
+
+Result:
+
+- The lock installed PyTorch `2.13.0+cu130` as intended.
+- CUDA initialization failed with: `The NVIDIA driver on your system is too
+  old (found version 12080)`.
+- The node has open server driver 570.148.08. Open server driver 580 is
+  available from its configured package repositories; the official PyTorch
+  CUDA 12.8 wheel index does not provide a PyTorch 2.13 build.
+
+Next:
+
+- Upgrade the node to the open 580 server driver and reboot, subject to user
+  approval, then rerun CUDA initialization and the mixed-optimizer tests.
+- Do not downgrade PyTorch merely to accommodate the image driver because that
+  would change the frozen training stack.

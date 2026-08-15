@@ -4,6 +4,97 @@ Purpose: track cloud setup, benchmark and training queues, environment locks,
 artifact retrieval, failures, and measured GPU results without recording
 private connection details.
 
+## 2026-08-14 [codex] Validate stateful DataTrove loader on two H100s
+
+Context:
+
+- Validated the project-owned pretokenized loader under the selected Qwen3-wide
+  model, local batch 80, and mixed Muon/AdamW optimizer.
+- Compared a realistic-token DataTrove fixture with a same-node Hugging Face
+  control. A uniform-ID fixture was also measured to distinguish input-content
+  effects from loader wait.
+
+Commands:
+
+```bash
+cd /path/to/web-curation-lab
+uv sync --frozen --group dev --extra data
+uv run --frozen --extra data pytest tests/training/test_datatrove_loader.py -q
+uv run --frozen --extra data torchrun --standalone --nproc-per-node=2 \
+  -m torchtitan.train \
+  --module web_curation_lab.training \
+  --config curation_qwen3_150m_wide_scored \
+  --dataloader.dataset-path \
+    ./outputs/data/0_raw_cc/training/views/2xh100_natural_100_steps.json \
+  --training.local-batch-size 80 \
+  --training.global-batch-size 160 \
+  --training.steps 100 \
+  --parallelism.data-parallel-replicate-degree 2 \
+  --checkpoint.no-enable \
+  --validator.no-enable \
+  --metrics.log-freq 1 \
+  --dump-folder ./outputs/datatrove_loader_smoke/natural_100steps
+
+# Checkpoint phase one; repeat with --training.steps 12 to resume step 6.
+uv run --frozen --extra data torchrun --standalone --nproc-per-node=2 \
+  -m torchtitan.train \
+  --module web_curation_lab.training \
+  --config curation_qwen3_150m_wide_scored \
+  --dataloader.dataset-path \
+    ./outputs/data/0_raw_cc/training/views/2xh100_natural_100_steps.json \
+  --training.local-batch-size 80 \
+  --training.global-batch-size 160 \
+  --training.steps 6 \
+  --parallelism.data-parallel-replicate-degree 2 \
+  --lr-scheduler.warmup-steps 1 \
+  --checkpoint.interval 3 \
+  --checkpoint.no-last-save-model-only \
+  --checkpoint.no-last-save-in-hf \
+  --validator.no-enable \
+  --metrics.log-freq 1 \
+  --dump-folder ./outputs/datatrove_loader_smoke/checkpoint_resume
+```
+
+- The first checkpoint attempt omitted the two-GPU topology overrides and
+  failed with `Invalid parallel dims: dp_replicate(8) ... != WORLD_SIZE(2)`.
+  The recorded command adds local/global batch 80/160 and DP replicate degree
+  two; the production config itself correctly remains an eight-GPU recipe.
+
+Artifacts:
+
+- Tracked sanitized measurements:
+  `benchmarks/training/h100_datatrove_loader_2026-08-14/`
+- Node-local fixtures and frozen views:
+  `outputs/data/0_raw_cc/training/smoke_shards_*` and
+  `outputs/data/0_raw_cc/training/views/2xh100_*`
+- Node-local TensorBoard, structured logs, and checkpoints:
+  `outputs/datatrove_loader_smoke/`
+
+Result:
+
+- The Linux loader suite passed 15 tests, including exact single- and
+  multi-worker resume, rank partitioning, corruption failures, and batched
+  reads across shard boundaries.
+- Across steps 10-100, the realistic DataTrove run averaged 385,201 global
+  tokens/s, 45.645% MFU, and 0.000113 seconds of loader wait per step (0.0265%).
+  The Hugging Face control averaged 389,851 tokens/s, 46.196% MFU, and 0.000129
+  seconds of loader wait. DataTrove throughput was 1.19% lower, while measured
+  data wait was slightly lower; the loader is not the bottleneck.
+- The uniform-ID fixture averaged 374,817 tokens/s despite the same negligible
+  loader wait. The artificial token distribution, rather than file I/O,
+  explains most of its larger gap and is not representative training evidence.
+- The first checkpoint run saved full state at step 6. The restarted process
+  loaded `step-6` and began at step 7, exercising TorchTitan integration with
+  the stateful DataTrove loader.
+- Final local validation passed with 39 tests and 13 expected macOS/Triton
+  skips; scoped Ruff, JSON parsing, and diff whitespace checks also passed.
+
+Next:
+
+- Implement the raw-WARC-to-DataTrove materializer and run it on one WARC on
+  this node, preserving document boundaries, counts, shard hashes, and resume
+  state. The production 100B shards and eight-GPU view are not created yet.
+
 ## 2026-08-12 [codex] Initial architecture comparison completed
 
 Context:

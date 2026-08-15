@@ -1,0 +1,40 @@
+{
+  "commit": "1f2732d8",
+  "hardware": {
+    "gpu_count": 2,
+    "gpu_model": "NVIDIA H100 80GB HBM3"
+  },
+  "metric_window": {
+    "count": 91,
+    "first_step": 10,
+    "last_step": 100
+  },
+  "model": "qwen3_150m_wide",
+  "runs": {
+    "hf_control_100steps": {
+      "data_loading_percent_mean": 0.030745206625906976,
+      "data_loading_seconds_mean": 0.00012919025271452943,
+      "mfu_percent_mean": 46.195929055685525,
+      "tokens_per_second_mean": 389851.34993131866
+    },
+    "natural_100steps": {
+      "data_loading_percent_mean": 0.02651403530163097,
+      "data_loading_seconds_mean": 0.00011286839547280509,
+      "mfu_percent_mean": 45.64491699554108,
+      "tokens_per_second_mean": 385201.3128434066
+    },
+    "uniform_100steps": {
+      "data_loading_percent_mean": 0.026573521576330555,
+      "data_loading_seconds_mean": 0.00011609987984059613,
+      "mfu_percent_mean": 44.41441437438294,
+      "tokens_per_second_mean": 374816.998282967
+    }
+  },
+  "training": {
+    "global_batch_size": 160,
+    "local_batch_size": 80,
+    "optimizer": "muon_with_adamw_fallback",
+    "parallelism": "replicated_data_parallel",
+    "sequence_length": 2048
+  }
+}

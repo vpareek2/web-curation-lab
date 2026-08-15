@@ -4,6 +4,40 @@ Purpose: track source-corpus selection, deterministic sampling, stable document
 identity, filter stages, deduplication, token accounting, manifests, and data
 pipeline performance.
 
+## 2026-08-14 [codex] Accept DataTrove loader after GPU validation
+
+Context:
+
+- Ran the loader against a realistic-token fixture on two H100s and compared it
+  with the existing Hugging Face text-loader path under the same model and
+  batch contract.
+
+Commands:
+
+- See the exact commands in `runbook/streams/cloud_runs.md` under
+  "Validate stateful DataTrove loader on two H100s."
+
+Artifacts:
+
+- Sanitized measurement evidence:
+  `benchmarks/training/h100_datatrove_loader_2026-08-14/`
+- Loader implementation and tests:
+  `src/web_curation_lab/training/datatrove_loader.py` and
+  `tests/training/test_datatrove_loader.py`
+
+Result:
+
+- The realistic DataTrove path was within 1.19% of the Hugging Face control.
+  Its mean loader wait was 0.000113 seconds per step, so no loader redesign is
+  justified before real-corpus materialization.
+- Full TorchTitan checkpoint state loaded from step 6 and resumed at step 7.
+  Production shards remain absent; all GPU inputs were bounded smoke fixtures.
+
+Next:
+
+- Build the raw-WARC-to-DataTrove materializer test-first, then run a one-WARC
+  cloud pilot before scaling the selected source inventory.
+
 ## 2026-08-14 [codex] Implement batch-aligned DataTrove training loader
 
 Context:
@@ -54,7 +88,7 @@ Result:
 - TorchTitan state snapshots resume at the exact next batch with both zero and
   two worker processes. Size and structure checks run on every rank; rank zero
   performs the content-hash pass once.
-- Local validation passed: 38 tests passed and 13 macOS/Triton tests skipped
+- Local validation passed: 39 tests passed and 13 macOS/Triton tests skipped
   in the full data-extra suite. The focused loader suite also passed its
   multi-worker shared-memory tests outside the filesystem sandbox.
 - No production `.ds` shards or 100B training view have been created yet.

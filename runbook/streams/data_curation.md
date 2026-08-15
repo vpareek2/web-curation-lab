@@ -49,7 +49,8 @@ Result:
   and SHA-256 hashes.
 - Each DDP rank receives a disjoint contiguous portion of every global batch.
   Examples read 2,049 IDs and return 2,048 shifted inputs and labels with
-  document positions reset after EOS.
+  document positions reset after EOS. PyTorch's batched fetch hook coalesces
+  each contiguous local batch into one read per intersected shard.
 - TorchTitan state snapshots resume at the exact next batch with both zero and
   two worker processes. Size and structure checks run on every rank; rank zero
   performs the content-hash pass once.

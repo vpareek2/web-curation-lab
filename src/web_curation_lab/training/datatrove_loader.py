@@ -8,7 +8,7 @@ import os
 from bisect import bisect_right
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, BinaryIO
 
 import numpy as np
 import torch
@@ -252,6 +252,7 @@ class DataTroveTrainingDataset(Dataset):
         self.shards = shards
         self._datasets = datasets
         self._cumulative_samples = cumulative_samples
+        self._bulk_handles: dict[int, BinaryIO] = {}
 
     def __len__(self) -> int:
         return self.selected_samples
@@ -274,6 +275,94 @@ class DataTroveTrainingDataset(Dataset):
             "input": tokens[:-1],
             "positions": positions[:-1],
         }, tokens[1:]
+
+    def _positions_from_tokens(self, tokens: torch.Tensor) -> torch.Tensor:
+        """Vectorize DataTrove's per-sample EOS position-reset contract."""
+
+        rows, width = tokens.shape
+        flat = tokens.reshape(-1)
+        offsets = torch.arange(flat.numel(), dtype=torch.long)
+        starts = torch.zeros(flat.numel(), dtype=torch.bool)
+        starts[::width] = True
+        starts[1:] |= flat[:-1] == self.eos_token_id
+        anchors = torch.where(starts, offsets, 0)
+        last_anchor = torch.cummax(anchors, dim=0).values
+        return (offsets - last_anchor).reshape(rows, width)
+
+    def _read_contiguous(
+        self,
+        *,
+        shard_index: int,
+        first_local_item: int,
+        count: int,
+    ) -> list[tuple[dict[str, torch.Tensor], torch.Tensor]]:
+        handle = self._bulk_handles.get(shard_index)
+        if handle is None:
+            handle = self.shards[shard_index].path.open("rb")
+            self._bulk_handles[shard_index] = handle
+        tokens_per_sample = self.sequence_length + 1
+        bytes_per_sample = tokens_per_sample * self.token_size_bytes
+        handle.seek(first_local_item * bytes_per_sample)
+        raw = handle.read(count * bytes_per_sample)
+        if len(raw) != count * bytes_per_sample:
+            raise ValueError(
+                f"Short read from {self.shards[shard_index].path}: expected "
+                f"{count * bytes_per_sample} bytes, found {len(raw)}"
+            )
+        dtype = np.dtype("<u2" if self.token_size_bytes == 2 else "<u4")
+        token_array = np.frombuffer(raw, dtype=dtype).reshape(count, tokens_per_sample)
+        tokens = torch.as_tensor(token_array.astype(np.int64), dtype=torch.long)
+        positions = self._positions_from_tokens(tokens)
+        return [
+            (
+                {
+                    "input": tokens[row, :-1],
+                    "positions": positions[row, :-1],
+                },
+                tokens[row, 1:],
+            )
+            for row in range(count)
+        ]
+
+    def __getitems__(
+        self, items: list[int]
+    ) -> list[tuple[dict[str, torch.Tensor], torch.Tensor]]:
+        """Fetch each contiguous batch with one read per intersected shard."""
+
+        normalized = [int(item) for item in items]
+        for item in normalized:
+            if not 0 <= item < len(self):
+                raise IndexError(item)
+        output: list[tuple[dict[str, torch.Tensor], torch.Tensor]] = []
+        cursor = 0
+        while cursor < len(normalized):
+            item = normalized[cursor]
+            shard_index = bisect_right(self._cumulative_samples, item) - 1
+            first_local_item = item - self._cumulative_samples[shard_index]
+            run_length = 1
+            while cursor + run_length < len(normalized):
+                next_item = normalized[cursor + run_length]
+                next_shard = bisect_right(self._cumulative_samples, next_item) - 1
+                next_local_item = next_item - self._cumulative_samples[next_shard]
+                if (
+                    next_shard != shard_index
+                    or next_local_item != first_local_item + run_length
+                ):
+                    break
+                run_length += 1
+            output.extend(
+                self._read_contiguous(
+                    shard_index=shard_index,
+                    first_local_item=first_local_item,
+                    count=run_length,
+                )
+            )
+            cursor += run_length
+        return output
+
+    def __del__(self) -> None:
+        for handle in getattr(self, "_bulk_handles", {}).values():
+            handle.close()
 
 
 class _RankBatchSampler(Sampler[list[int]]):

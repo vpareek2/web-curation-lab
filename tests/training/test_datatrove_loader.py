@@ -96,6 +96,36 @@ def test_dataset_shifts_tokens_and_resets_positions_after_eos(tmp_path: Path) ->
     assert inputs["positions"].tolist() == [0, 1, 2, 0]
 
 
+def test_batched_fetch_matches_scalar_fetch_across_shards(tmp_path: Path) -> None:
+    shard_a = tmp_path / "000.ds"
+    shard_b = tmp_path / "001.ds"
+    _write_shard(shard_a, [10, 11, 2, 20, 21, 22, 23, 24, 2, 25], [3, 9, 10])
+    _write_shard(shard_b, [30, 2, 31, 32, 33, 40, 41, 42, 43, 44], [2, 10])
+    view = tmp_path / "view.json"
+    _write_view(
+        view,
+        [shard_a, shard_b],
+        sequence_length=4,
+        global_batch_size=4,
+        training_steps=1,
+    )
+    dataset = DataTroveTrainingDataset(view)
+    expected = [dataset[index] for index in (1, 2)]
+
+    for shard_dataset in dataset._datasets:
+        shard_dataset.__getitem__ = lambda _: (_ for _ in ()).throw(
+            AssertionError("batched fetch fell back to scalar DataTrove reads")
+        )
+    actual = dataset.__getitems__([1, 2])
+
+    for (expected_inputs, expected_labels), (actual_inputs, actual_labels) in zip(
+        expected, actual, strict=True
+    ):
+        assert torch.equal(expected_inputs["input"], actual_inputs["input"])
+        assert torch.equal(expected_inputs["positions"], actual_inputs["positions"])
+        assert torch.equal(expected_labels, actual_labels)
+
+
 def test_two_ranks_cover_each_global_batch_once(tmp_path: Path) -> None:
     shard = tmp_path / "000.ds"
     _write_shard(shard, list(range(100)), [100])

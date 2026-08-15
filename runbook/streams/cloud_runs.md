@@ -123,3 +123,141 @@ Next:
   approval, then rerun CUDA initialization and the mixed-optimizer tests.
 - Do not downgrade PyTorch merely to accommodate the image driver because that
   would change the frozen training stack.
+
+## 2026-08-14 [codex] Two-H100 Muon checkpoint and HF parity preflight passed
+
+Context:
+
+- Upgraded the preparation node to an open 580 server driver and retained the
+  frozen PyTorch `2.13.0+cu130` environment.
+- Ran the selected 153.38M-parameter wide Qwen3 with pure two-GPU replicated
+  data parallelism and the mixed Muon/AdamW optimizer.
+- This twelve-step local-data run checks integration only. Its losses, MFU, and
+  throughput are not production measurements.
+
+Commands:
+
+```bash
+cd /path/to/web-curation-lab
+uv run --frozen python -c 'import torch; print(torch.__version__, torch.version.cuda, torch.cuda.is_available(), torch.cuda.device_count())'
+uv run --frozen pytest tests/training/test_optimizer.py tests/training/test_reference_config.py -q
+uv run --frozen torchrun --standalone --nproc-per-node=2 -m torchtitan.train \
+  --module web_curation_lab.training \
+  --config curation_qwen3_150m_wide_preflight_checkpoint
+uv run --frozen torchrun --standalone --nproc-per-node=2 -m torchtitan.train \
+  --module web_curation_lab.training \
+  --config curation_qwen3_150m_wide_preflight_export
+uv run --frozen web-curation-package-hf \
+  --checkpoint-dir outputs/preflight/qwen3_150m_wide/checkpoints/step-12 \
+  --output-dir outputs/preflight/qwen3_150m_wide/hf-fp32 \
+  --architecture qwen3_150m_wide \
+  --run-id qwen3-wide-preflight \
+  --stage preflight \
+  --step 12 \
+  --tokens-seen 196608
+uv sync --frozen --extra eval-preflight
+uv run --frozen --extra eval-preflight web-curation-check-hf-parity \
+  --model outputs/preflight/qwen3_150m_wide/hf-fp32 \
+  --output outputs/preflight/qwen3_150m_wide/hf_parity.json
+```
+
+Artifacts:
+
+- Node-local DCP checkpoints:
+  `outputs/preflight/qwen3_150m_wide/checkpoints/step-{3,6,9}/`
+- Node-local native FP32 HF checkpoint:
+  `outputs/preflight/qwen3_150m_wide/checkpoints/step-12/`
+- Node-local packaged model and manifest:
+  `outputs/preflight/qwen3_150m_wide/hf-fp32/`
+- Node-local parity report:
+  `outputs/preflight/qwen3_150m_wide/hf_parity.json`
+- Node-local structured logs:
+  `outputs/preflight/qwen3_150m_wide/structured_logs/`
+
+Result:
+
+- CUDA initialized on both H100s and a BF16 matrix multiplication completed.
+- TorchTitan routed 50 hidden two-dimensional parameter tensors to Muon and 42
+  fallback tensors to fused AdamW. The model compiled and completed two-rank
+  forward, backward, optimizer, validation, and checkpoint operations.
+- Step 6 produced a full resumable DCP checkpoint. The second process loaded
+  `step-6`, resumed at step 7, and completed at step 12.
+- Peak reported memory was 5.73 GiB per GPU at local batch 4, leaving ample
+  headroom for the required batch-size sweep.
+- The final validation loss was 5.5088 after 196,608 tokens. This is smoke-test
+  telemetry only because the fixed health data is reused for training here.
+- HF packaging verified the pinned Mistral tokenizer revision, 32,000-token
+  vocabulary, BOS ID 1, and EOS ID 2.
+- Transformers parity passed: matching argmaxes, KL divergence
+  `-2.201146998004333e-07` at a `1e-6` threshold, maximum absolute logit error
+  `1.9073486328125e-06`, and four generated tokens.
+- The selected Qwen3/Muon tests passed. Three unrelated GPT-OSS tests in the
+  broader test file failed because the optional `kernels` package was absent;
+  the selected dense Qwen3 path does not require it.
+
+Next:
+
+- Run a longer steady-state local-batch sweep on the two-H100 node, excluding
+  compilation, validation, and checkpoint steps from throughput summaries.
+- Repeat the chosen local batch briefly on the final eight-GPU topology before
+  freezing global batch and generating the exact batch-aligned training view.
+
+## 2026-08-14 [codex] Two-H100 Muon batch sweep selected local batch 80
+
+Context:
+
+- Swept local batch sizes for the selected Qwen3-wide model using the verified
+  mixed Muon/AdamW optimizer on two H100s with replicated data parallelism.
+- Used the fixed Paloma health JSONL smoke loader. The dataset repeatedly wraps,
+  so the selected batch remains provisional until the pretokenized loader and
+  final eight-GPU topology confirm it.
+
+Commands:
+
+```bash
+cd /path/to/web-curation-lab
+uv run --frozen torchrun --standalone --nproc-per-node=2 \
+  -m torchtitan.train \
+  --module web_curation_lab.training \
+  --config curation_qwen3_150m_wide_preflight_checkpoint \
+  --training.local_batch_size <8|16|32|48|64|80|96> \
+  --training.global_batch_size <2x-local-batch> \
+  --training.steps 30 \
+  --checkpoint.no-enable \
+  --validator.no-enable \
+  --metrics.log_freq 1 \
+  --dump_folder ./outputs/batch_sweep/<run-name>
+```
+
+- Repeated the same command for local batches 64 and 80 with
+  `--training.steps 100`.
+- Derived metrics average duplicate rank lines for each step, then summarize
+  steps 10 through the end.
+
+Artifacts:
+
+- Tracked sanitized logs and derived measurements:
+  `benchmarks/training/h100_muon_batch_sweep_2026-08-14/`
+- Node-local TensorBoard and structured logs:
+  `outputs/batch_sweep/`
+
+Result:
+
+- Short-sweep means for local batches 32, 48, 64, 80, and 96 were respectively
+  331k, 364k, 380k, 391k, and 397k global tokens/s.
+- The 100-step confirmations measured 378,445 tokens/s and 44.84% MFU at
+  local batch 64, versus 389,542 tokens/s and 46.16% MFU at local batch 80.
+  Both summaries use 91 steps after discarding steps 1-9.
+- Local batch 80 used 60.68 GiB per GPU and was 2.93% faster than local batch
+  64. Local batch 96 used 72.45 of 79.18 GiB and was only about 1.4% faster
+  than local batch 80 in the short sweep, so it was rejected as too close to
+  the memory boundary.
+- Set the current root training default to local batch 80. On eight GPUs this
+  is global batch 640 and 1,310,720 predicted tokens per step. A 100B-token run
+  requires 76,294 steps and processes 100,000,071,680 tokens.
+
+Next:
+
+- Implement and benchmark the pretokenized DataTrove loader on this node.
+- Confirm local batch 80 on the final eight-GPU node before declaring the global
+  batch frozen and creating the exact batch-aligned training view.

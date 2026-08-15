@@ -11,7 +11,7 @@ from web_curation_lab.training.models import (
 
 EXPECTED_PARAMETER_COUNT = 148_861_696
 EXPECTED_WIDE_PARAMETER_COUNT = 153_378_304
-EXPECTED_PROCESSED_TOKENS = 500_170_752
+EXPECTED_PROCESSED_TOKENS = 500_695_040
 EXPECTED_HYBRID_PARAMETER_COUNT = 150_089_248
 EXPECTED_HYBRID_WIDE_PARAMETER_COUNT = 153_443_072
 EXPECTED_GPT_OSS_DENSE_PARAMETER_COUNT = 148_890_464
@@ -123,9 +123,9 @@ def test_reference_training_token_budget() -> None:
     config = curation_qwen3_150m_reference()
 
     assert NUM_GPUS == 8
-    assert GLOBAL_BATCH_SIZE == 128
-    assert TOKENS_PER_STEP == 262_144
-    assert TRAINING_STEPS == 1_908
+    assert GLOBAL_BATCH_SIZE == 640
+    assert TOKENS_PER_STEP == 1_310_720
+    assert TRAINING_STEPS == 382
     assert TRAINING_STEPS * TOKENS_PER_STEP == EXPECTED_PROCESSED_TOKENS
     assert EXPECTED_PROCESSED_TOKENS >= TARGET_TOKENS
     assert config.training.seq_len == SEQUENCE_LENGTH
@@ -156,11 +156,13 @@ def test_scored_run_enables_health_validation_and_hf_export() -> None:
     pytest.importorskip("triton", reason=TRITON_REQUIRED)
 
     from web_curation_lab.training.config_registry import (
+        DATATROVE_SCORED_VIEW_PATH,
         SCORED_TARGET_TOKENS,
         SCORED_TRAINING_STEPS,
         TOKENS_PER_STEP,
         curation_qwen3_150m_wide_scored,
     )
+    from web_curation_lab.training.datatrove_loader import DataTroveTokenDataLoader
 
     config = curation_qwen3_150m_wide_scored()
 
@@ -174,6 +176,10 @@ def test_scored_run_enables_health_validation_and_hf_export() -> None:
     assert config.checkpoint.last_save_model_only
     assert config.checkpoint.last_save_in_hf
     assert config.checkpoint.export_dtype == "bfloat16"
+    assert isinstance(config.dataloader, DataTroveTokenDataLoader.Config)
+    assert config.dataloader.dataset_path == DATATROVE_SCORED_VIEW_PATH
+    assert config.dataloader.num_workers == 4
+    assert config.dataloader.pin_memory
     assert config.validator.enable
     assert config.validator.freq == round(SCORED_TRAINING_STEPS * 0.02)
     assert config.validator.dataloader.dataset == "paloma_health"

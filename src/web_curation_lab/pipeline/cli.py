@@ -10,6 +10,7 @@ from web_curation_lab.pipeline.stages.raw_cc.audit import load_audit_config, run
 from web_curation_lab.pipeline.stages.raw_cc.census import load_census_config, run_census
 from web_curation_lab.pipeline.stages.raw_cc.pilot import load_pilot_config, run_pilot
 from web_curation_lab.pipeline.stages.raw_cc.probe import load_probe_config, run_probe
+from web_curation_lab.training.datatrove_loader import create_training_view
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -44,6 +45,18 @@ def build_parser() -> argparse.ArgumentParser:
         help="Download and census a deterministic multi-WARC 0_raw_cc pilot.",
     )
     pilot_parser.add_argument("--config", type=Path, required=True)
+
+    view_parser = subparsers.add_parser(
+        "create-training-view",
+        help="Freeze an exact batch-aligned view over DataTrove .ds shards.",
+    )
+    view_parser.add_argument("--dataset-dir", type=Path, required=True)
+    view_parser.add_argument("--output", type=Path, required=True)
+    view_parser.add_argument("--sequence-length", type=int, required=True)
+    view_parser.add_argument("--global-batch-size", type=int, required=True)
+    view_parser.add_argument("--training-steps", type=int, required=True)
+    view_parser.add_argument("--seed", type=int, default=42)
+    view_parser.add_argument("--token-size-bytes", type=int, choices=(2, 4), default=2)
     return parser
 
 
@@ -67,6 +80,18 @@ def main(argv: list[str] | None = None) -> None:
     if args.command == "pilot":
         config, census_config = load_pilot_config(args.config)
         summary = run_pilot(config, census_config)
+        print(json.dumps(summary, indent=2, sort_keys=True))
+        return
+    if args.command == "create-training-view":
+        summary = create_training_view(
+            dataset_dir=args.dataset_dir,
+            output_path=args.output,
+            sequence_length=args.sequence_length,
+            global_batch_size=args.global_batch_size,
+            training_steps=args.training_steps,
+            seed=args.seed,
+            token_size_bytes=args.token_size_bytes,
+        )
         print(json.dumps(summary, indent=2, sort_keys=True))
         return
     raise AssertionError(f"Unhandled command: {args.command}")

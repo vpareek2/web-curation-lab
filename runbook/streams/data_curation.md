@@ -4,6 +4,68 @@ Purpose: track source-corpus selection, deterministic sampling, stable document
 identity, filter stages, deduplication, token accounting, manifests, and data
 pipeline performance.
 
+## 2026-08-14 [codex] Implement batch-aligned DataTrove training loader
+
+Context:
+
+- Added the project-owned adapter between DataTrove `.ds` token shards and
+  TorchTitan's stateful dataloader contract.
+- The scored Qwen3-wide recipe now expects an exact 8xH100/100B training view
+  rather than online Hugging Face text tokenization.
+
+Commands:
+
+```bash
+cd /path/to/web-curation-lab
+uv run --extra data pytest -q
+uv run --extra data ruff check \
+  src/web_curation_lab/pipeline/cli.py \
+  src/web_curation_lab/training/config_registry.py \
+  src/web_curation_lab/training/datatrove_loader.py \
+  tests/training/test_reference_config.py \
+  tests/training/test_datatrove_loader.py
+uv run --extra data web-curation-data create-training-view \
+  --dataset-dir outputs/data/0_raw_cc/training/shards \
+  --output outputs/data/0_raw_cc/training/views/8xh100_100b.json \
+  --sequence-length 2048 \
+  --global-batch-size 640 \
+  --training-steps 76294 \
+  --seed 42
+```
+
+Artifacts:
+
+- Loader and view implementation:
+  `src/web_curation_lab/training/datatrove_loader.py`
+- CLI integration: `src/web_curation_lab/pipeline/cli.py`
+- Loader tests: `tests/training/test_datatrove_loader.py`
+- Planned production view:
+  `outputs/data/0_raw_cc/training/views/8xh100_100b.json`
+
+Result:
+
+- A view freezes deterministic shard order, exact sample count, sequence
+  length, global batch, training steps, tokenizer identity, shard/index sizes,
+  and SHA-256 hashes.
+- Each DDP rank receives a disjoint contiguous portion of every global batch.
+  Examples read 2,049 IDs and return 2,048 shifted inputs and labels with
+  document positions reset after EOS.
+- TorchTitan state snapshots resume at the exact next batch with both zero and
+  two worker processes. Size and structure checks run on every rank; rank zero
+  performs the content-hash pass once.
+- Local validation passed: 38 tests passed and 13 macOS/Triton tests skipped
+  in the full data-extra suite. The focused loader suite also passed its
+  multi-worker shared-memory tests outside the filesystem sandbox.
+- No production `.ds` shards or 100B training view have been created yet.
+
+Next:
+
+- Pull the implementation onto the active two-H100 node, generate a bounded
+  DataTrove-format fixture, and compare 100-step end-to-end throughput at local
+  batch 80 against the preserved HF-loader sweep.
+- After the GPU check, implement and pilot the raw-WARC-to-DataTrove shard
+  materialization command before processing the full source inventory.
+
 ## 2026-08-12 [codex] Current state before implementation
 
 Context:

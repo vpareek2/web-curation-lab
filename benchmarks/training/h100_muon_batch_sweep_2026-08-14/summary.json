@@ -1,0 +1,40 @@
+{
+  "architecture": "qwen3_150m_wide",
+  "parameters": 153378304,
+  "gpu_count": 2,
+  "gpu_model": "NVIDIA H100 80GB HBM3",
+  "sequence_length": 2048,
+  "parallelism": "replicated_data_parallel",
+  "optimizer": "muon_with_adamw_fallback",
+  "precision": {
+    "parameters": "bfloat16",
+    "gradient_reduction": "float32"
+  },
+  "measurement_window": {
+    "first_step": 10,
+    "rank_aggregation": "mean",
+    "step_aggregation": "mean_and_median"
+  },
+  "short_sweep": [
+    {"local_batch": 8, "global_batch": 16, "steps_measured": 21, "mean_tokens_per_second": 121918, "median_tokens_per_second": 122410, "mean_mfu_percent": 14.45, "peak_memory_gib": 8.41},
+    {"local_batch": 16, "global_batch": 32, "steps_measured": 21, "mean_tokens_per_second": 245060, "median_tokens_per_second": 256159, "mean_mfu_percent": 29.04, "peak_memory_gib": 14.42},
+    {"local_batch": 32, "global_batch": 64, "steps_measured": 21, "mean_tokens_per_second": 330883, "median_tokens_per_second": 328674, "mean_mfu_percent": 39.21, "peak_memory_gib": 26.04},
+    {"local_batch": 48, "global_batch": 96, "steps_measured": 21, "mean_tokens_per_second": 364009, "median_tokens_per_second": 359577, "mean_mfu_percent": 43.13, "peak_memory_gib": 37.79},
+    {"local_batch": 64, "global_batch": 128, "steps_measured": 21, "mean_tokens_per_second": 380345, "median_tokens_per_second": 380722, "mean_mfu_percent": 45.07, "peak_memory_gib": 48.90},
+    {"local_batch": 80, "global_batch": 160, "steps_measured": 21, "mean_tokens_per_second": 391482, "median_tokens_per_second": 391816, "mean_mfu_percent": 46.39, "peak_memory_gib": 60.69},
+    {"local_batch": 96, "global_batch": 192, "steps_measured": 21, "mean_tokens_per_second": 396852, "median_tokens_per_second": 397074, "mean_mfu_percent": 47.03, "peak_memory_gib": 72.45}
+  ],
+  "confirmation_runs": [
+    {"local_batch": 64, "global_batch": 128, "steps_measured": 91, "mean_tokens_per_second": 378445, "median_tokens_per_second": 379435, "tokens_per_second_population_stddev": 11888, "mean_mfu_percent": 44.84, "peak_memory_gib": 48.90},
+    {"local_batch": 80, "global_batch": 160, "steps_measured": 91, "mean_tokens_per_second": 389542, "median_tokens_per_second": 390284, "tokens_per_second_population_stddev": 8648, "mean_mfu_percent": 46.16, "peak_memory_gib": 60.68}
+  ],
+  "selection": {
+    "local_batch": 80,
+    "eight_gpu_global_batch": 640,
+    "eight_gpu_tokens_per_step": 1310720,
+    "steps_for_at_least_100b_tokens": 76294,
+    "tokens_trained": 100000071680,
+    "tokens_over_target": 71680,
+    "status": "provisional_until_pretokenized_loader_and_eight_gpu_confirmation"
+  }
+}

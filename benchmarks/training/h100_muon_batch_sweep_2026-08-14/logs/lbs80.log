@@ -1,0 +1,158 @@
+W0815 02:32:26.448000 7933 torch/distributed/run.py:874] 
+W0815 02:32:26.448000 7933 torch/distributed/run.py:874] *****************************************
+W0815 02:32:26.448000 7933 torch/distributed/run.py:874] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0815 02:32:26.448000 7933 torch/distributed/run.py:874] *****************************************
+[titan] 2026-08-15 02:32:30,700 - root - INFO - torchtitan version: 0.2.2 (0.0.0 means __version__ is not defined correctly).
+[titan] 2026-08-15 02:32:30,708 - root - WARNING - initial_load_model_only=True has no effect without an initial_load_path.
+[titan] 2026-08-15 02:32:30,708 - root - WARNING - initial_load_model_only=True has no effect without an initial_load_path.
+[titan] 2026-08-15 02:32:30,780 - root - WARNING - initial_load_model_only=True has no effect without an initial_load_path.
+[titan] 2026-08-15 02:32:30,781 - torchtitan.observability.structured_logger.jsonl_handler - INFO - Structured logging -> JSONL: /path/to/web-curation-lab/outputs/batch_sweep/qwen3_muon_lbs80/structured_logs/training.global_rank_1.20260815-023230-21OO8N.jsonl
+[titan] 2026-08-15 02:32:30,812 - root - INFO - torchtitan version: 0.2.2 (0.0.0 means __version__ is not defined correctly).
+[titan] 2026-08-15 02:32:30,820 - root - WARNING - initial_load_model_only=True has no effect without an initial_load_path.
+[titan] 2026-08-15 02:32:30,820 - root - WARNING - initial_load_model_only=True has no effect without an initial_load_path.
+[titan] 2026-08-15 02:32:30,888 - root - WARNING - ENV[TORCH_NCCL_ASYNC_ERROR_HANDLING] = 1 will be overridden to 3 based on job config
+[titan] 2026-08-15 02:32:30,894 - root - WARNING - initial_load_model_only=True has no effect without an initial_load_path.
+[titan] 2026-08-15 02:32:30,895 - torchtitan.observability.structured_logger.jsonl_handler - INFO - Structured logging -> JSONL: /path/to/web-curation-lab/outputs/batch_sweep/qwen3_muon_lbs80/structured_logs/training.global_rank_0.20260815-023230-DEPU8U.jsonl
+[titan] 2026-08-15 02:32:30,908 - root - INFO - Building device mesh with parallelism: pp=1, dp_replicate=2, dp_shard=1, cp=1, tp=1, ep=1
+[titan] 2026-08-15 02:32:30,914 - root - INFO - Successfully created meshes with active dimensions: ['batch', 'loss', 'dp_replicate']
+[titan] 2026-08-15 02:32:30,914 - root - INFO - [GC] Initial GC collection took 0.00 seconds
+[titan] 2026-08-15 02:32:30,917 - root - INFO - Building web_curation_qwen3 qwen3_150m_wide
+[titan] 2026-08-15 02:32:30,962 - root - INFO - CUDA capacity: NVIDIA H100 80GB HBM3 with 79.18GiB memory
+[titan] 2026-08-15 02:32:30,973 - root - INFO - Total parameter count: dense 153,378,304, sparse 0, vision 0, active 153,378,304
+[titan] 2026-08-15 02:32:30,973 - root - INFO - Model web_curation_qwen3 qwen3_150m_wide size: 153,378,304 total parameters
+[titan] 2026-08-15 02:32:30,974 - root - INFO - Compiling the loss function with torch.compile
+[titan] 2026-08-15 02:32:30,997 - root - INFO - Compiling each TransformerBlock with torch.compile
+[titan] 2026-08-15 02:32:31,004 - root - WARNING - ENV[TORCH_NCCL_ASYNC_ERROR_HANDLING] = 1 will be overridden to 3 based on job config
+[titan] 2026-08-15 02:32:31,023 - root - INFO - Building device mesh with parallelism: pp=1, dp_replicate=2, dp_shard=1, cp=1, tp=1, ep=1
+[titan] 2026-08-15 02:32:31,029 - root - INFO - Successfully created meshes with active dimensions: ['batch', 'loss', 'dp_replicate']
+[titan] 2026-08-15 02:32:31,029 - root - INFO - [GC] Initial GC collection took 0.00 seconds
+[titan] 2026-08-15 02:32:31,032 - root - INFO - Building web_curation_qwen3 qwen3_150m_wide
+[titan] 2026-08-15 02:32:31,046 - root - INFO - Applied HSDP to the model
+[titan] 2026-08-15 02:32:31,079 - root - INFO - TensorBoard logging enabled. Logs will be saved at ./outputs/batch_sweep/qwen3_muon_lbs80/tb/20260815-0232
+[titan] 2026-08-15 02:32:31,079 - root - INFO - CUDA capacity: NVIDIA H100 80GB HBM3 with 79.18GiB memory
+[titan] 2026-08-15 02:32:31,091 - root - INFO - Total parameter count: dense 153,378,304, sparse 0, vision 0, active 153,378,304
+[titan] 2026-08-15 02:32:31,091 - root - INFO - Model web_curation_qwen3 qwen3_150m_wide size: 153,378,304 total parameters
+[titan] 2026-08-15 02:32:31,091 - root - INFO - Compiling the loss function with torch.compile
+[titan] 2026-08-15 02:32:31,114 - root - INFO - Compiling each TransformerBlock with torch.compile
+[titan] 2026-08-15 02:32:31,166 - root - INFO - Applied HSDP to the model
+[titan] 2026-08-15 02:32:31,318 - root - INFO - Peak FLOPS used for computing MFU: 9.890e+14
+[titan] 2026-08-15 02:32:31,318 - root - INFO - CUDA memory usage for model: 1.09GiB(1.38%)
+[titan] 2026-08-15 02:32:31,319 - root - INFO - Optimizer Muon (model_part=0): 50 params [hidden 2D matrices] {'lr': 0.02, 'momentum': 0.95, 'weight_decay': 0.1, 'nesterov': True, 'eps': 1e-07}
+[titan] 2026-08-15 02:32:31,319 - root - INFO - Optimizer AdamW (model_part=0): 42 params [AdamW fallback] {'lr': 0.0006, 'betas': (0.9, 0.95), 'eps': 1e-08, 'weight_decay': 0.1, 'foreach': False, 'fused': True}
+[titan] 2026-08-15 02:32:31,320 - root - INFO - Loading tokenizer from tokenizer.json
+[titan] 2026-08-15 02:32:31,374 - root - INFO - Preparing paloma_health dataset from ./data/evaluation/paloma_health.jsonl
+[titan] 2026-08-15 02:32:31,444 - root - INFO - Peak FLOPS used for computing MFU: 9.890e+14
+[titan] 2026-08-15 02:32:31,444 - root - INFO - CUDA memory usage for model: 1.09GiB(1.38%)
+[titan] 2026-08-15 02:32:31,445 - root - INFO - Optimizer Muon (model_part=0): 50 params [hidden 2D matrices] {'lr': 0.02, 'momentum': 0.95, 'weight_decay': 0.1, 'nesterov': True, 'eps': 1e-07}
+[titan] 2026-08-15 02:32:31,445 - root - INFO - Optimizer AdamW (model_part=0): 42 params [AdamW fallback] {'lr': 0.0006, 'betas': (0.9, 0.95), 'eps': 1e-08, 'weight_decay': 0.1, 'foreach': False, 'fused': True}
+[titan] 2026-08-15 02:32:31,446 - root - INFO - Loading tokenizer from tokenizer.json
+[titan] 2026-08-15 02:32:31,501 - root - INFO - Preparing paloma_health dataset from ./data/evaluation/paloma_health.jsonl
+[titan] 2026-08-15 02:32:31,506 - httpx - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/json/json.py "HTTP/1.1 200 OK"
+/path/to/web-curation-lab/.venv/lib/python3.11/site-packages/torchdata/stateful_dataloader/stateful_dataloader.py:379: UserWarning: 'set_vital' is deprecated, please do not call
+  torch.set_vital("Dataloader", "enabled", "True")  # type: ignore[attr-defined]
+[titan] 2026-08-15 02:32:31,515 - root - WARNING - model.safetensors.index.json not found at hf_assets_path: ./assets/hf/Mistral-7B-v0.1/model.safetensors.index.json.                     Defaulting to saving a single safetensors file if checkpoint is saved in HF format
+[titan] 2026-08-15 02:32:31,515 - root - WARNING - initial_load_model_only=True has no effect without an initial_load_path.
+[titan] 2026-08-15 02:32:31,515 - root - INFO - Trainer is initialized with local batch size 80, global batch size 160, gradient accumulation steps 1, sequence length 2048, total steps 30 (warmup 2)
+[titan] 2026-08-15 02:32:31,515 - root - INFO - Training starts at step 1
+[titan] 2026-08-15 02:32:31,634 - httpx - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/json/json.py "HTTP/1.1 200 OK"
+/path/to/web-curation-lab/.venv/lib/python3.11/site-packages/torchdata/stateful_dataloader/stateful_dataloader.py:379: UserWarning: 'set_vital' is deprecated, please do not call
+  torch.set_vital("Dataloader", "enabled", "True")  # type: ignore[attr-defined]
+[titan] 2026-08-15 02:32:31,643 - root - WARNING - model.safetensors.index.json not found at hf_assets_path: ./assets/hf/Mistral-7B-v0.1/model.safetensors.index.json.                     Defaulting to saving a single safetensors file if checkpoint is saved in HF format
+[titan] 2026-08-15 02:32:31,643 - root - WARNING - initial_load_model_only=True has no effect without an initial_load_path.
+[titan] 2026-08-15 02:32:31,644 - root - INFO - Trainer is initialized with local batch size 80, global batch size 160, gradient accumulation steps 1, sequence length 2048, total steps 30 (warmup 2)
+[titan] 2026-08-15 02:32:31,644 - root - INFO - Training starts at step 1
+[titan] 2026-08-15 02:32:31,993 - root - WARNING - Dataset paloma_health is being re-looped (epoch 1)
+[titan] 2026-08-15 02:32:31,993 - root - WARNING - Dataset paloma_health is being re-looped (epoch 1)
+[titan] 2026-08-15 02:32:32,662 - root - WARNING - Dataset paloma_health is being re-looped (epoch 2)
+[titan] 2026-08-15 02:32:47,602 - root - INFO - step:  1  loss: 10.73761  grad_norm: 10.0846  memory: 59.46GiB(75.10%)  tps: 9,853  tflops: 11.55  mfu: 1.17%
+[titan] 2026-08-15 02:32:47,602 - root - WARNING - torch.distributed.set_timeout is unavailable; retaining the initial process-group timeout.
+[titan] 2026-08-15 02:32:47,602 - root - INFO - step:  1  loss: 10.73761  grad_norm: 10.0846  memory: 59.46GiB(75.10%)  tps: 9,923  tflops: 11.63  mfu: 1.18%
+[titan] 2026-08-15 02:32:47,603 - root - WARNING - torch.distributed.set_timeout is unavailable; retaining the initial process-group timeout.
+[titan] 2026-08-15 02:32:47,811 - root - WARNING - Dataset paloma_health is being re-looped (epoch 2)
+[titan] 2026-08-15 02:32:48,010 - root - INFO - step:  2  loss:  8.61459  grad_norm:  7.8034  memory: 60.69GiB(76.65%)  tps: 401,577  tflops: 470.62  mfu: 47.59%
+[titan] 2026-08-15 02:32:48,011 - root - INFO - step:  2  loss:  8.61459  grad_norm:  7.8034  memory: 60.69GiB(76.65%)  tps: 401,791  tflops: 470.87  mfu: 47.61%
+[titan] 2026-08-15 02:32:48,326 - root - WARNING - Dataset paloma_health is being re-looped (epoch 3)
+[titan] 2026-08-15 02:32:48,414 - root - INFO - step:  3  loss:  9.44158  grad_norm: 13.7191  memory: 60.69GiB(76.65%)  tps: 405,710  tflops: 475.46  mfu: 48.08%
+[titan] 2026-08-15 02:32:48,415 - root - INFO - step:  3  loss:  9.44158  grad_norm: 13.7191  memory: 60.69GiB(76.65%)  tps: 405,985  tflops: 475.79  mfu: 48.11%
+[titan] 2026-08-15 02:32:48,727 - root - WARNING - Dataset paloma_health is being re-looped (epoch 3)
+[titan] 2026-08-15 02:32:48,831 - root - INFO - step:  4  loss:  9.28769  grad_norm: 10.9230  memory: 60.69GiB(76.65%)  tps: 393,776  tflops: 461.48  mfu: 46.66%
+[titan] 2026-08-15 02:32:48,831 - root - INFO - step:  4  loss:  9.28769  grad_norm: 10.9230  memory: 60.69GiB(76.65%)  tps: 393,945  tflops: 461.67  mfu: 46.68%
+[titan] 2026-08-15 02:32:49,227 - root - WARNING - Dataset paloma_health is being re-looped (epoch 4)
+[titan] 2026-08-15 02:32:49,258 - root - INFO - step:  5  loss:  9.15590  grad_norm:  5.0003  memory: 60.69GiB(76.65%)  tps: 383,923  tflops: 449.93  mfu: 45.49%
+[titan] 2026-08-15 02:32:49,258 - root - INFO - step:  5  loss:  9.15590  grad_norm:  5.0003  memory: 60.69GiB(76.65%)  tps: 384,171  tflops: 450.22  mfu: 45.52%
+[titan] 2026-08-15 02:32:49,654 - root - WARNING - Dataset paloma_health is being re-looped (epoch 4)
+[titan] 2026-08-15 02:32:49,692 - root - INFO - step:  6  loss:  8.59519  grad_norm:  8.8654  memory: 60.69GiB(76.65%)  tps: 377,060  tflops: 441.89  mfu: 44.68%
+[titan] 2026-08-15 02:32:49,693 - root - INFO - step:  6  loss:  8.59519  grad_norm:  8.8654  memory: 60.69GiB(76.65%)  tps: 377,234  tflops: 442.09  mfu: 44.70%
+[titan] 2026-08-15 02:32:50,120 - root - INFO - step:  7  loss:  8.20067  grad_norm:  2.4271  memory: 60.69GiB(76.65%)  tps: 383,538  tflops: 449.48  mfu: 45.45%
+[titan] 2026-08-15 02:32:50,120 - root - INFO - step:  7  loss:  8.20067  grad_norm:  2.4271  memory: 60.69GiB(76.65%)  tps: 383,892  tflops: 449.89  mfu: 45.49%
+[titan] 2026-08-15 02:32:50,551 - root - INFO - step:  8  loss:  7.86807  grad_norm:  4.7956  memory: 60.69GiB(76.65%)  tps: 380,489  tflops: 445.91  mfu: 45.09%
+[titan] 2026-08-15 02:32:50,551 - root - INFO - step:  8  loss:  7.86807  grad_norm:  4.7956  memory: 60.69GiB(76.65%)  tps: 380,686  tflops: 446.14  mfu: 45.11%
+[titan] 2026-08-15 02:32:50,636 - root - WARNING - Dataset paloma_health is being re-looped (epoch 5)
+[titan] 2026-08-15 02:32:50,978 - root - INFO - step:  9  loss:  7.51073  grad_norm:  3.9399  memory: 60.69GiB(76.65%)  tps: 383,385  tflops: 449.30  mfu: 45.43%
+[titan] 2026-08-15 02:32:50,979 - root - INFO - step:  9  loss:  7.51073  grad_norm:  3.9399  memory: 60.69GiB(76.65%)  tps: 383,451  tflops: 449.38  mfu: 45.44%
+[titan] 2026-08-15 02:32:51,063 - root - WARNING - Dataset paloma_health is being re-looped (epoch 5)
+[titan] 2026-08-15 02:32:51,402 - root - INFO - step: 10  loss:  7.22432  grad_norm:  6.4786  memory: 60.69GiB(76.65%)  tps: 386,664  tflops: 453.14  mfu: 45.82%
+[titan] 2026-08-15 02:32:51,403 - root - INFO - step: 10  loss:  7.22432  grad_norm:  6.4786  memory: 60.69GiB(76.65%)  tps: 386,842  tflops: 453.35  mfu: 45.84%
+[titan] 2026-08-15 02:32:51,549 - root - WARNING - Dataset paloma_health is being re-looped (epoch 6)
+[titan] 2026-08-15 02:32:51,814 - root - INFO - step: 11  loss:  7.26384  grad_norm:  1.9163  memory: 60.69GiB(76.65%)  tps: 398,416  tflops: 466.91  mfu: 47.21%
+[titan] 2026-08-15 02:32:51,814 - root - INFO - step: 11  loss:  7.26384  grad_norm:  1.9163  memory: 60.69GiB(76.65%)  tps: 398,650  tflops: 467.19  mfu: 47.24%
+[titan] 2026-08-15 02:32:51,962 - root - WARNING - Dataset paloma_health is being re-looped (epoch 6)
+[titan] 2026-08-15 02:32:52,232 - root - INFO - step: 12  loss:  7.00977  grad_norm:  4.4820  memory: 60.69GiB(76.65%)  tps: 392,240  tflops: 459.68  mfu: 46.48%
+[titan] 2026-08-15 02:32:52,232 - root - INFO - step: 12  loss:  7.00977  grad_norm:  4.4820  memory: 60.69GiB(76.65%)  tps: 392,488  tflops: 459.97  mfu: 46.51%
+[titan] 2026-08-15 02:32:52,509 - root - WARNING - Dataset paloma_health is being re-looped (epoch 7)
+[titan] 2026-08-15 02:32:52,636 - root - INFO - step: 13  loss:  7.15062  grad_norm:  2.0276  memory: 60.69GiB(76.65%)  tps: 406,199  tflops: 476.04  mfu: 48.13%
+[titan] 2026-08-15 02:32:52,636 - root - INFO - step: 13  loss:  7.15062  grad_norm:  2.0276  memory: 60.69GiB(76.65%)  tps: 406,420  tflops: 476.29  mfu: 48.16%
+[titan] 2026-08-15 02:32:52,910 - root - WARNING - Dataset paloma_health is being re-looped (epoch 7)
+[titan] 2026-08-15 02:32:53,039 - root - INFO - step: 14  loss:  6.96350  grad_norm:  1.4013  memory: 60.69GiB(76.65%)  tps: 406,776  tflops: 476.71  mfu: 48.20%
+[titan] 2026-08-15 02:32:53,039 - root - INFO - step: 14  loss:  6.96350  grad_norm:  1.4013  memory: 60.69GiB(76.65%)  tps: 406,967  tflops: 476.94  mfu: 48.22%
+[titan] 2026-08-15 02:32:53,438 - root - WARNING - Dataset paloma_health is being re-looped (epoch 8)
+[titan] 2026-08-15 02:32:53,454 - root - INFO - step: 15  loss:  6.78367  grad_norm:  1.6065  memory: 60.69GiB(76.65%)  tps: 394,709  tflops: 462.57  mfu: 46.77%
+[titan] 2026-08-15 02:32:53,454 - root - INFO - step: 15  loss:  6.78367  grad_norm:  1.6065  memory: 60.69GiB(76.65%)  tps: 394,950  tflops: 462.85  mfu: 46.80%
+[titan] 2026-08-15 02:32:53,851 - root - WARNING - Dataset paloma_health is being re-looped (epoch 8)
+[titan] 2026-08-15 02:32:53,873 - root - INFO - step: 16  loss:  6.62620  grad_norm:  1.7916  memory: 60.69GiB(76.65%)  tps: 391,707  tflops: 459.05  mfu: 46.42%
+[titan] 2026-08-15 02:32:53,873 - root - INFO - step: 16  loss:  6.62620  grad_norm:  1.7916  memory: 60.69GiB(76.65%)  tps: 391,926  tflops: 459.31  mfu: 46.44%
+[titan] 2026-08-15 02:32:54,293 - root - INFO - step: 17  loss:  6.59293  grad_norm:  1.4465  memory: 60.69GiB(76.65%)  tps: 389,611  tflops: 456.60  mfu: 46.17%
+[titan] 2026-08-15 02:32:54,294 - root - INFO - step: 17  loss:  6.59293  grad_norm:  1.4465  memory: 60.69GiB(76.65%)  tps: 389,815  tflops: 456.84  mfu: 46.19%
+[titan] 2026-08-15 02:32:54,715 - root - INFO - step: 18  loss:  6.41292  grad_norm:  1.3016  memory: 60.69GiB(76.65%)  tps: 388,480  tflops: 455.27  mfu: 46.03%
+[titan] 2026-08-15 02:32:54,716 - root - INFO - step: 18  loss:  6.41292  grad_norm:  1.3016  memory: 60.69GiB(76.65%)  tps: 388,713  tflops: 455.54  mfu: 46.06%
+[titan] 2026-08-15 02:32:54,772 - root - WARNING - Dataset paloma_health is being re-looped (epoch 9)
+[titan] 2026-08-15 02:32:54,857 - root - WARNING - Dataset paloma_health is being re-looped (epoch 1)
+[titan] 2026-08-15 02:32:55,130 - root - INFO - step: 19  loss:  6.49667  grad_norm:  1.1081  memory: 60.69GiB(76.65%)  tps: 395,038  tflops: 462.96  mfu: 46.81%
+[titan] 2026-08-15 02:32:55,131 - root - INFO - step: 19  loss:  6.49667  grad_norm:  1.1081  memory: 60.69GiB(76.65%)  tps: 395,255  tflops: 463.21  mfu: 46.84%
+[titan] 2026-08-15 02:32:55,187 - root - WARNING - Dataset paloma_health is being re-looped (epoch 9)
+[titan] 2026-08-15 02:32:55,272 - root - WARNING - Dataset paloma_health is being re-looped (epoch 1)
+[titan] 2026-08-15 02:32:55,548 - root - INFO - step: 20  loss:  6.27003  grad_norm:  0.6824  memory: 60.69GiB(76.65%)  tps: 392,244  tflops: 459.68  mfu: 46.48%
+[titan] 2026-08-15 02:32:55,549 - root - INFO - step: 20  loss:  6.27003  grad_norm:  0.6824  memory: 60.69GiB(76.65%)  tps: 392,465  tflops: 459.94  mfu: 46.51%
+[titan] 2026-08-15 02:32:55,691 - root - WARNING - Dataset paloma_health is being re-looped (epoch 10)
+[titan] 2026-08-15 02:32:55,977 - root - INFO - step: 21  loss:  6.71782  grad_norm:  1.0689  memory: 60.69GiB(76.65%)  tps: 382,242  tflops: 447.96  mfu: 45.29%
+[titan] 2026-08-15 02:32:55,978 - root - INFO - step: 21  loss:  6.71782  grad_norm:  1.0689  memory: 60.69GiB(76.65%)  tps: 382,436  tflops: 448.19  mfu: 45.32%
+[titan] 2026-08-15 02:32:56,120 - root - WARNING - Dataset paloma_health is being re-looped (epoch 10)
+[titan] 2026-08-15 02:32:56,412 - root - INFO - step: 22  loss:  6.44184  grad_norm:  1.5012  memory: 60.69GiB(76.65%)  tps: 377,022  tflops: 441.84  mfu: 44.68%
+[titan] 2026-08-15 02:32:56,412 - root - INFO - step: 22  loss:  6.44184  grad_norm:  1.5012  memory: 60.69GiB(76.65%)  tps: 377,230  tflops: 442.09  mfu: 44.70%
+[titan] 2026-08-15 02:32:56,650 - root - WARNING - Dataset paloma_health is being re-looped (epoch 11)
+[titan] 2026-08-15 02:32:56,826 - root - INFO - step: 23  loss:  6.16997  grad_norm:  0.6766  memory: 60.69GiB(76.65%)  tps: 396,044  tflops: 464.14  mfu: 46.93%
+[titan] 2026-08-15 02:32:56,826 - root - INFO - step: 23  loss:  6.16997  grad_norm:  0.6766  memory: 60.69GiB(76.65%)  tps: 396,249  tflops: 464.38  mfu: 46.95%
+[titan] 2026-08-15 02:32:57,063 - root - WARNING - Dataset paloma_health is being re-looped (epoch 11)
+[titan] 2026-08-15 02:32:57,233 - root - INFO - step: 24  loss:  5.96663  grad_norm:  0.7828  memory: 60.69GiB(76.65%)  tps: 403,267  tflops: 472.60  mfu: 47.79%
+[titan] 2026-08-15 02:32:57,233 - root - INFO - step: 24  loss:  5.96663  grad_norm:  0.7828  memory: 60.69GiB(76.65%)  tps: 403,502  tflops: 472.87  mfu: 47.81%
+[titan] 2026-08-15 02:32:57,616 - root - WARNING - Dataset paloma_health is being re-looped (epoch 12)
+[titan] 2026-08-15 02:32:57,653 - root - INFO - step: 25  loss:  5.92074  grad_norm:  0.6584  memory: 60.69GiB(76.65%)  tps: 389,733  tflops: 456.74  mfu: 46.18%
+[titan] 2026-08-15 02:32:57,654 - root - INFO - step: 25  loss:  5.92074  grad_norm:  0.6584  memory: 60.69GiB(76.65%)  tps: 389,949  tflops: 456.99  mfu: 46.21%
+[titan] 2026-08-15 02:32:58,025 - root - WARNING - Dataset paloma_health is being re-looped (epoch 12)
+[titan] 2026-08-15 02:32:58,074 - root - INFO - step: 26  loss:  5.79992  grad_norm:  0.9952  memory: 60.69GiB(76.65%)  tps: 389,498  tflops: 456.46  mfu: 46.15%
+[titan] 2026-08-15 02:32:58,075 - root - INFO - step: 26  loss:  5.79992  grad_norm:  0.9952  memory: 60.69GiB(76.65%)  tps: 389,723  tflops: 456.73  mfu: 46.18%
+[titan] 2026-08-15 02:32:58,492 - root - INFO - step: 27  loss:  5.98481  grad_norm:  0.8061  memory: 60.69GiB(76.65%)  tps: 392,229  tflops: 459.66  mfu: 46.48%
+[titan] 2026-08-15 02:32:58,493 - root - INFO - step: 27  loss:  5.98481  grad_norm:  0.8061  memory: 60.69GiB(76.65%)  tps: 392,428  tflops: 459.90  mfu: 46.50%
+[titan] 2026-08-15 02:32:58,911 - root - INFO - step: 28  loss:  5.76207  grad_norm:  0.5562  memory: 60.69GiB(76.65%)  tps: 391,600  tflops: 458.93  mfu: 46.40%
+[titan] 2026-08-15 02:32:58,911 - root - INFO - step: 28  loss:  5.76207  grad_norm:  0.5562  memory: 60.69GiB(76.65%)  tps: 391,806  tflops: 459.17  mfu: 46.43%
+[titan] 2026-08-15 02:32:58,953 - root - WARNING - Dataset paloma_health is being re-looped (epoch 13)
+[titan] 2026-08-15 02:32:59,342 - root - INFO - step: 29  loss:  5.75586  grad_norm:  0.5241  memory: 60.69GiB(76.65%)  tps: 380,045  tflops: 445.39  mfu: 45.03%
+[titan] 2026-08-15 02:32:59,343 - root - INFO - step: 29  loss:  5.75586  grad_norm:  0.5241  memory: 60.69GiB(76.65%)  tps: 380,273  tflops: 445.65  mfu: 45.06%
+[titan] 2026-08-15 02:32:59,382 - root - WARNING - Dataset paloma_health is being re-looped (epoch 13)
+[titan] 2026-08-15 02:32:59,779 - root - INFO - step: 30  loss:  5.62373  grad_norm:  0.3665  memory: 60.69GiB(76.65%)  tps: 375,107  tflops: 439.60  mfu: 44.45%
+[titan] 2026-08-15 02:32:59,780 - root - INFO - step: 30  loss:  5.62373  grad_norm:  0.3665  memory: 60.69GiB(76.65%)  tps: 375,302  tflops: 439.83  mfu: 44.47%
+[titan] 2026-08-15 02:32:59,780 - root - INFO - Training completed
+[titan] 2026-08-15 02:32:59,781 - root - INFO - Sleeping 2 seconds for other ranks to complete
+[titan] 2026-08-15 02:33:01,781 - root - INFO - Training completed
+[titan] 2026-08-15 02:33:01,794 - root - INFO - Process group destroyed
+[titan] 2026-08-15 02:33:01,906 - root - INFO - Process group destroyed

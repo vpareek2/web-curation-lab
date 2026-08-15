@@ -12,6 +12,7 @@ from torchtitan.hf_datasets.text_datasets import DATASETS, HuggingFaceTextDataLo
 from torchtitan.models.common.config_utils import decoder_vocab_size
 from torchtitan.trainer import Trainer
 
+from .datatrove_loader import DataTroveTokenDataLoader
 from .models.gpt_oss_dense import model_registry as gpt_oss_dense_model_registry
 from .models.qwen3 import model_registry as qwen3_model_registry
 from .models.qwen3_5 import model_registry as qwen35_model_registry
@@ -19,7 +20,7 @@ from .optimizer import muon_with_adamw
 
 NUM_GPUS = 8
 SEQUENCE_LENGTH = 2_048
-LOCAL_BATCH_SIZE = 16
+LOCAL_BATCH_SIZE = 80
 GLOBAL_BATCH_SIZE = NUM_GPUS * LOCAL_BATCH_SIZE
 TARGET_TOKENS = 500_000_000
 TOKENS_PER_STEP = GLOBAL_BATCH_SIZE * SEQUENCE_LENGTH
@@ -36,6 +37,9 @@ PREFLIGHT_NUM_GPUS = 2
 PREFLIGHT_LOCAL_BATCH_SIZE = 4
 PREFLIGHT_GLOBAL_BATCH_SIZE = PREFLIGHT_NUM_GPUS * PREFLIGHT_LOCAL_BATCH_SIZE
 PREFLIGHT_DUMP_FOLDER = "./outputs/preflight/qwen3_150m_wide"
+DATATROVE_SCORED_VIEW_PATH = (
+    "./outputs/data/0_raw_cc/training/views/8xh100_100b.json"
+)
 
 
 def _load_health_dataset(path: str):
@@ -151,6 +155,13 @@ def curation_qwen3_150m_wide_scored() -> Trainer.Config:
     config.dump_folder = "./outputs/runs/qwen3_150m_wide_scored"
     config.training.steps = SCORED_TRAINING_STEPS
     config.lr_scheduler.warmup_steps = round(SCORED_TRAINING_STEPS * 0.10)
+    config.dataloader = DataTroveTokenDataLoader.Config(
+        dataset_path=DATATROVE_SCORED_VIEW_PATH,
+        num_workers=4,
+        persistent_workers=True,
+        pin_memory=True,
+        prefetch_factor=4,
+    )
     config.checkpoint = CheckpointManager.Config(
         enable=True,
         folder="checkpoints",

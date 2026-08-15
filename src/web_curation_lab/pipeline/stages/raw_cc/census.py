@@ -14,8 +14,9 @@ from typing import Any
 from datatrove.data import DocumentsPipeline
 from datatrove.executor.local import LocalPipelineExecutor
 from datatrove.pipeline.base import PipelineStep
-from datatrove.pipeline.tokens import TokensCounter
+from datatrove.utils.batching import batched
 from datatrove.utils.stats import MetricStats, PipelineStats
+from datatrove.utils.tokenization import PipelineStepWithTokenizer
 
 from web_curation_lab.pipeline.stages.raw_cc.probe import STAGE_ID
 from web_curation_lab.pipeline.stages.raw_cc.reader import RawWarcReader
@@ -69,6 +70,36 @@ class CensusCounters(PipelineStep):
                 unit="document",
             )
             yield document
+
+
+class ContentTokensCounter(PipelineStepWithTokenizer):
+    """Count text tokens without a tokenizer postprocessor or document boundary."""
+
+    name = "Raw CC content-token counter"
+    type = "Stats"
+
+    def __init__(self, tokenizer_name_or_path: str, *, batch_size: int) -> None:
+        super().__init__(tokenizer_name_or_path)
+        self.batch_size = batch_size
+
+    def run(
+        self,
+        data: DocumentsPipeline,
+        rank: int = 0,
+        world_size: int = 1,
+    ) -> DocumentsPipeline:
+        del rank, world_size
+        for batch in batched(data, self.batch_size):
+            with self.track_time(unit="batch"):
+                encoded_batch = self.tokenizer.encode_batch(
+                    [document.text for document in batch],
+                    add_special_tokens=False,
+                )
+            for document, encoded in zip(batch, encoded_batch, strict=True):
+                count = len(encoded.ids)
+                document.metadata["token_count"] = count
+                self.stat_update("tokens", value=count)
+                yield document
 
 
 def load_census_config(config_path: Path) -> CensusConfig:
@@ -234,9 +265,8 @@ def run_census(config: CensusConfig) -> dict[str, Any]:
             text_mime_types=config.text_mime_types,
             text_mime_suffixes=config.text_mime_suffixes,
         ),
-        TokensCounter(
+        ContentTokensCounter(
             tokenizer_name_or_path=str(tokenizer_path),
-            count_eos_token=False,
             batch_size=config.tokenizer_batch_size,
         ),
         CensusCounters(),

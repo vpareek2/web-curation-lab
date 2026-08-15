@@ -5,7 +5,6 @@ from __future__ import annotations
 import contextlib
 import hashlib
 import json
-import os
 import shutil
 import sys
 import tomllib
@@ -29,7 +28,8 @@ from web_curation_lab.tokenizer_assets import (
     verify_tokenizer,
 )
 
-MATERIALIZATION_SCHEMA_VERSION = 1
+INVENTORY_SCHEMA_VERSION = 1
+MATERIALIZATION_SCHEMA_VERSION = 2
 EOS_TOKEN_TEXT = "</s>"
 READ_CHUNK_BYTES = 64 * 1024 * 1024
 
@@ -129,7 +129,7 @@ def _load_inventory(
             f"Could not read materialization inventory {inventory_path}: {error}"
         ) from error
     expected_identity = (
-        MATERIALIZATION_SCHEMA_VERSION,
+        INVENTORY_SCHEMA_VERSION,
         config.stage_id,
         config.crawl_id,
         config.policy_revision,
@@ -253,9 +253,33 @@ def _load_completed_source(
         ) from error
     if manifest.get("identity") != expected_identity:
         raise ValueError(f"Completed source identity mismatch: {manifest_path}")
-    _validate_file_record(folder, manifest["artifacts"]["tokens"])
-    _validate_file_record(folder, manifest["artifacts"]["index"])
+    token_path = _validate_file_record(folder, manifest["artifacts"]["tokens"])
+    index_path = _validate_file_record(folder, manifest["artifacts"]["index"])
+    _validate_document_eos(token_path, index_path, token_size_bytes=2)
     return manifest
+
+
+def _validate_document_eos(
+    token_path: Path,
+    index_path: Path,
+    *,
+    token_size_bytes: int,
+) -> None:
+    dtype = np.dtype("<u2" if token_size_bytes == 2 else "<u4")
+    document_ends = np.frombuffer(index_path.read_bytes(), dtype="<u8").astype(np.int64)
+    if not len(document_ends):
+        raise ValueError(f"Token index contains no document boundaries: {index_path}")
+    tokens = np.memmap(token_path, dtype=dtype, mode="r")
+    try:
+        if int(document_ends[-1]) != len(tokens):
+            raise ValueError(f"Final document boundary does not match token count: {index_path}")
+        if not np.all(tokens[document_ends - 1] == EXPECTED_EOS_ID):
+            raise ValueError(
+                f"One or more materialized documents do not end with EOS "
+                f"{EXPECTED_EOS_ID}: {token_path}"
+            )
+    finally:
+        del tokens
 
 
 def _tokenize_source(config: MaterializeConfig, source: InventorySource) -> dict[str, Any]:
@@ -312,16 +336,11 @@ def _tokenize_source(config: MaterializeConfig, source: InventorySource) -> dict
     document_count = index_path.stat().st_size // 8
     if token_count == 0 or document_count == 0:
         raise ValueError(f"Materialized source is empty: {source.path}")
-    with token_path.open("rb") as handle:
-        handle.seek(-config.token_size_bytes, os.SEEK_END)
-        final_token = int.from_bytes(handle.read(config.token_size_bytes), "little")
-    if final_token != EXPECTED_EOS_ID:
-        raise ValueError(
-            f"Materialized source does not end with EOS {EXPECTED_EOS_ID}: {token_path}"
-        )
-    doc_ends = np.frombuffer(index_path.read_bytes(), dtype="<u8")
-    if not len(doc_ends) or int(doc_ends[-1]) != token_count:
-        raise ValueError(f"Final document boundary does not match token count: {index_path}")
+    _validate_document_eos(
+        token_path,
+        index_path,
+        token_size_bytes=config.token_size_bytes,
+    )
 
     manifest = {
         "schema_version": MATERIALIZATION_SCHEMA_VERSION,
@@ -348,6 +367,7 @@ def _tokenize_source(config: MaterializeConfig, source: InventorySource) -> dict
 def assemble_token_streams(
     *,
     input_paths: list[Path],
+    input_index_paths: list[Path],
     output_dir: Path,
     sequence_length: int,
     samples_per_shard: int,
@@ -358,6 +378,8 @@ def assemble_token_streams(
 
     if not input_paths:
         raise ValueError("No token streams were provided for assembly")
+    if len(input_paths) != len(input_index_paths):
+        raise ValueError("Every input token stream must have one index")
     if sequence_length <= 0 or samples_per_shard <= 0:
         raise ValueError("Sequence length and samples per shard must be positive")
     if token_size_bytes not in (2, 4):
@@ -415,11 +437,34 @@ def assemble_token_streams(
         shard_path = None
 
     open_shard()
-    for input_path in input_paths:
+    for input_path, input_index_path in zip(
+        input_paths, input_index_paths, strict=True
+    ):
         byte_count = input_path.stat().st_size
         if byte_count % token_size_bytes:
             raise ValueError(f"Input token file has an invalid byte size: {input_path}")
         source_tokens += byte_count // token_size_bytes
+        source_document_ends = np.frombuffer(
+            input_index_path.read_bytes(), dtype="<u8"
+        ).astype(np.int64)
+        input_token_count = byte_count // token_size_bytes
+        if (
+            not len(source_document_ends)
+            or np.any(source_document_ends[1:] <= source_document_ends[:-1])
+            or int(source_document_ends[-1]) != input_token_count
+        ):
+            raise ValueError(f"Input token index is invalid: {input_index_path}")
+        input_tokens = np.memmap(input_path, dtype=dtype, mode="r")
+        try:
+            if not np.all(input_tokens[source_document_ends - 1] == eos_token_id):
+                raise ValueError(
+                    f"One or more input documents do not end with EOS "
+                    f"{eos_token_id}: {input_path}"
+                )
+        finally:
+            del input_tokens
+        input_tokens_read = 0
+        document_cursor = 0
         with input_path.open("rb") as source_handle:
             while True:
                 remaining_tokens = target_tokens_per_shard - shard_tokens
@@ -432,11 +477,19 @@ def assemble_token_streams(
                 assert shard_handle is not None
                 shard_handle.write(chunk)
                 chunk_tokens = np.frombuffer(chunk, dtype=dtype)
-                eos_offsets = np.flatnonzero(chunk_tokens == eos_token_id)
-                shard_boundaries.extend(
-                    (eos_offsets + shard_tokens + 1).astype(int).tolist()
-                )
+                chunk_end = input_tokens_read + len(chunk_tokens)
+                while (
+                    document_cursor < len(source_document_ends)
+                    and source_document_ends[document_cursor] <= chunk_end
+                ):
+                    document_end = int(source_document_ends[document_cursor])
+                    if document_end > input_tokens_read:
+                        shard_boundaries.append(
+                            shard_tokens + document_end - input_tokens_read
+                        )
+                    document_cursor += 1
                 shard_tokens += len(chunk_tokens)
+                input_tokens_read = chunk_end
                 if shard_tokens == target_tokens_per_shard:
                     close_shard()
                     open_shard()
@@ -542,8 +595,15 @@ def run_materialization(
         / source_manifests[index]["artifacts"]["tokens"]["path"]
         for index in ordering
     ]
+    input_index_paths = [
+        config.work_dir.resolve()
+        / f"{sources[index].index:05d}-{sources[index].sha256[:12]}"
+        / source_manifests[index]["artifacts"]["index"]["path"]
+        for index in ordering
+    ]
     assembly = assemble_token_streams(
         input_paths=input_paths,
+        input_index_paths=input_index_paths,
         output_dir=temporary_dir,
         sequence_length=config.sequence_length,
         samples_per_shard=config.samples_per_shard,

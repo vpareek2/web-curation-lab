@@ -16,6 +16,10 @@ from warcio.statusandheaders import StatusAndHeaders
 from warcio.warcwriter import WARCWriter
 
 from web_curation_lab.pipeline.cli import main
+from web_curation_lab.pipeline.stages.raw_cc.census import (
+    load_census_config,
+    run_census,
+)
 from web_curation_lab.pipeline.stages.raw_cc.materialize import (
     assemble_token_streams,
     load_materialize_config,
@@ -49,10 +53,11 @@ def test_assembler_packs_across_sources_and_discards_only_final_partial_sample(
     first = tmp_path / "inputs" / "first.ds"
     second = tmp_path / "inputs" / "second.ds"
     _write_tokens(first, [10, 2, 11, 12, 2], [2, 5])
-    _write_tokens(second, [20, 21, 2, 22, 23, 24, 2, 25], [3, 7])
+    _write_tokens(second, [20, 21, 2, 22, 23, 24, 2, 2], [3, 7, 8])
 
     summary = assemble_token_streams(
         input_paths=[first, second],
+        input_index_paths=[first.with_suffix(".ds.index"), second.with_suffix(".ds.index")],
         output_dir=tmp_path / "shards",
         sequence_length=3,
         samples_per_shard=2,
@@ -91,6 +96,7 @@ def test_assembler_exact_boundary_does_not_leave_an_empty_shard(tmp_path: Path) 
 
     summary = assemble_token_streams(
         input_paths=[source],
+        input_index_paths=[source.with_suffix(".ds.index")],
         output_dir=tmp_path / "shards",
         sequence_length=3,
         samples_per_shard=2,
@@ -167,10 +173,10 @@ crawl_id = "CC-MAIN-TEST"
 policy_revision = "0_raw_cc-test-v1"
 
 [probe]
-input_path = "unused.warc.gz"
+input_path = "{warc_path}"
 
 [census]
-output_dir = "unused-census"
+output_dir = "{tmp_path / 'census'}"
 tokenizer_path = "{tokenizer_dir / 'tokenizer.json'}"
 tokenizer_batch_size = 2
 text_mime_prefixes = ["text/"]
@@ -212,6 +218,11 @@ def test_materializer_uses_frozen_reader_adds_eos_and_resumes_exactly(tmp_path: 
     assert "<html>" in decoded
     assert "raw navigation survives" in decoded
     assert first["tokenizer"]["eos_id"] == 2
+
+    census = run_census(load_census_config(config_path))
+    assert census["counts"]["training_tokens_with_eos"] == first["counts"][
+        "source_tokens"
+    ]
 
     view_path = tmp_path / "training-view.json"
     create_training_view(

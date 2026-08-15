@@ -152,6 +152,58 @@ def test_reference_training_uses_replicated_ddp() -> None:
     assert config.compile.components == ["model", "loss"]
 
 
+def test_scored_run_enables_health_validation_and_hf_export() -> None:
+    pytest.importorskip("triton", reason=TRITON_REQUIRED)
+
+    from web_curation_lab.training.config_registry import (
+        SCORED_TARGET_TOKENS,
+        SCORED_TRAINING_STEPS,
+        TOKENS_PER_STEP,
+        curation_qwen3_150m_wide_scored,
+    )
+
+    config = curation_qwen3_150m_wide_scored()
+
+    assert config.training.steps == SCORED_TRAINING_STEPS
+    assert SCORED_TRAINING_STEPS * TOKENS_PER_STEP >= SCORED_TARGET_TOKENS
+    assert config.lr_scheduler.warmup_steps == round(SCORED_TRAINING_STEPS * 0.10)
+    assert config.lr_scheduler.decay_ratio == pytest.approx(0.15)
+    assert config.checkpoint.enable
+    assert config.checkpoint.interval == round(SCORED_TRAINING_STEPS * 0.01)
+    assert config.checkpoint.keep_latest_k == 3
+    assert config.checkpoint.last_save_model_only
+    assert config.checkpoint.last_save_in_hf
+    assert config.checkpoint.export_dtype == "bfloat16"
+    assert config.validator.enable
+    assert config.validator.freq == round(SCORED_TRAINING_STEPS * 0.02)
+    assert config.validator.dataloader.dataset == "paloma_health"
+
+
+def test_two_gpu_preflight_checkpoint_and_export_contract() -> None:
+    pytest.importorskip("triton", reason=TRITON_REQUIRED)
+
+    from web_curation_lab.training.config_registry import (
+        PREFLIGHT_DUMP_FOLDER,
+        curation_qwen3_150m_wide_preflight_checkpoint,
+        curation_qwen3_150m_wide_preflight_export,
+    )
+
+    checkpoint = curation_qwen3_150m_wide_preflight_checkpoint()
+    export = curation_qwen3_150m_wide_preflight_export()
+
+    assert checkpoint.dump_folder == export.dump_folder == PREFLIGHT_DUMP_FOLDER
+    assert checkpoint.training.steps == 6
+    assert export.training.steps == 12
+    assert checkpoint.training.global_batch_size == 8
+    assert checkpoint.parallelism.data_parallel_replicate_degree == 2
+    assert checkpoint.dataloader.dataset == "paloma_health"
+    assert checkpoint.checkpoint.last_save_model_only is False
+    assert checkpoint.checkpoint.last_save_in_hf is False
+    assert export.checkpoint.last_save_model_only is True
+    assert export.checkpoint.last_save_in_hf is True
+    assert export.checkpoint.export_dtype == "float32"
+
+
 def test_reference_torchtitan_model_build() -> None:
     pytest.importorskip("triton", reason=TRITON_REQUIRED)
 
@@ -183,6 +235,19 @@ def test_wide_torchtitan_model_build() -> None:
         == EXPECTED_WIDE_PARAMETER_COUNT
     )
     assert model.tok_embeddings.weight is model.lm_head.weight
+
+
+def test_wide_training_uses_muon_with_adamw_fallback() -> None:
+    pytest.importorskip("triton", reason=TRITON_REQUIRED)
+
+    from web_curation_lab.training.config_registry import curation_qwen3_150m_wide
+    from web_curation_lab.training.optimizer import MuonWithAdamW
+
+    config = curation_qwen3_150m_wide()
+
+    assert isinstance(config.optimizer, MuonWithAdamW.Config)
+    assert config.optimizer.muon_lr == pytest.approx(0.02)
+    assert config.optimizer.adamw_lr == pytest.approx(6e-4)
 
 
 @pytest.mark.parametrize(

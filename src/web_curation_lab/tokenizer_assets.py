@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -16,6 +17,12 @@ TOKENIZER_FILES = (
     "tokenizer.model",
     "tokenizer_config.json",
 )
+TOKENIZER_SHA256 = {
+    "special_tokens_map.json": "6fa06efa2785e450051989a6f8fb4416b10149ded485ddd3f127a40734f5cfd0",
+    "tokenizer.json": "11c08db21487c885d8c792180f0be237f6a261b89a46f128a6a80a3aa4bd1720",
+    "tokenizer.model": "dadfd56d766715c61d2ef780a525ab43b8e6da4de6865bda3d95fdef5e134055",
+    "tokenizer_config.json": "ddb008229511e51607002ffe28925001c4a9ca4177dc4de3a655d085cc610b99",
+}
 EXPECTED_VOCAB_SIZE = 32_000
 EXPECTED_BOS_ID = 1
 EXPECTED_EOS_ID = 2
@@ -27,6 +34,10 @@ def verify_tokenizer(path: Path = TOKENIZER_PATH) -> None:
     missing = [name for name in TOKENIZER_FILES if not (path / name).is_file()]
     if missing:
         raise FileNotFoundError(f"Missing tokenizer files in {path}: {missing}")
+    for name, expected in TOKENIZER_SHA256.items():
+        digest = hashlib.sha256((path / name).read_bytes()).hexdigest()
+        if digest != expected:
+            raise ValueError(f"Tokenizer SHA-256 mismatch for {path / name}")
 
     tokenizer = Tokenizer.from_file(str(path / "tokenizer.json"))
     tokenizer_config = json.loads((path / "tokenizer_config.json").read_text())

@@ -1,0 +1,9 @@
+{
+  "argmax_match": true,
+  "generated_tokens": 1,
+  "kl_divergence": -1.9662050476654258e-07,
+  "kl_threshold": 1e-06,
+  "max_absolute_logit_error": 1.9073486328125e-06,
+  "model": "/root/web-curation-lab/outputs/preflight/qwen3_150m_wide/hf-fp32",
+  "prompt_tokens": 6
+}

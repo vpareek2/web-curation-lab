@@ -1,0 +1,46 @@
+[stage]
+id = "0_raw_cc"
+crawl_id = "CC-MAIN-2026-25"
+policy_revision = "0_raw_cc-v1"
+
+[probe]
+input_path = "outputs/data/0_raw_cc/source/CC-MAIN-20260605214811-20260606004811-00000.warc.gz"
+output_dir = "outputs/data/0_raw_cc/pilot"
+limit = 100
+preview_chars = 500
+
+[census]
+output_dir = "outputs/data/0_raw_cc/census"
+tokenizer_path = "assets/hf/Mistral-7B-v0.1/tokenizer.json"
+tokenizer_batch_size = 256
+text_mime_prefixes = ["text/"]
+text_mime_types = [
+    "application/atom+xml",
+    "application/javascript",
+    "application/json",
+    "application/ld+json",
+    "application/rss+xml",
+    "application/xhtml+xml",
+    "application/xml",
+    "application/x-javascript",
+    "image/svg+xml",
+]
+text_mime_suffixes = ["+json", "+xml"]
+
+[audit]
+output_dir = "outputs/data/0_raw_cc/audit"
+samples_per_category = 50
+preview_bytes = 256
+preview_chars = 500
+
+[pilot]
+listing_path = "outputs/data/0_raw_cc/source/warc.paths.gz"
+source_dir = "outputs/data/0_raw_cc/source"
+output_dir = "outputs/data/0_raw_cc/pilot_10"
+base_url = "https://data.commoncrawl.org"
+sample_size = 10
+expected_listing_entries = 100000
+target_training_tokens = 100000000000
+download_chunk_bytes = 8388608
+download_timeout_seconds = 120
+download_retries = 5

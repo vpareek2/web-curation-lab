@@ -8,6 +8,7 @@ from web_curation_lab.tokenizer_assets import (
     EXPECTED_EOS_ID,
     EXPECTED_VOCAB_SIZE,
     TOKENIZER_PATH,
+    TOKENIZER_SHA256,
     verify_tokenizer,
 )
 
@@ -24,3 +25,9 @@ def test_pinned_tokenizer_assets() -> None:
     assert tokenizer.eos_id == EXPECTED_EOS_ID
     assert token_ids[0] == EXPECTED_BOS_ID
     assert token_ids[-1] == EXPECTED_EOS_ID
+    assert set(TOKENIZER_SHA256) == {
+        "special_tokens_map.json",
+        "tokenizer.json",
+        "tokenizer.model",
+        "tokenizer_config.json",
+    }

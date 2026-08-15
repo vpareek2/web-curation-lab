@@ -1,0 +1,44 @@
+#!/bin/bash
+# Setup Google Artifact Registry authentication for Podman
+# Requires: GOOGLE_APPLICATION_CREDENTIALS env var (file path or JSON content)
+
+set -e
+
+if [ -z "$GOOGLE_APPLICATION_CREDENTIALS" ]; then
+    echo "GOOGLE_APPLICATION_CREDENTIALS not set, skipping Artifact Registry setup"
+    return 0 2>/dev/null || true  # return when sourced, no-op when executed directly
+fi
+
+echo "Setting up Artifact Registry credentials..."
+
+# Install gcloud if not available
+if ! command -v gcloud &> /dev/null; then
+    echo "Installing Google Cloud SDK..."
+    curl -sSL https://sdk.cloud.google.com | bash -s -- --disable-prompts --install-dir=/opt > /dev/null 2>&1
+    export PATH="/opt/google-cloud-sdk/bin:$PATH"
+fi
+
+# GOOGLE_APPLICATION_CREDENTIALS may be a file path (from gantry) or JSON content
+if [[ -f "$GOOGLE_APPLICATION_CREDENTIALS" ]]; then
+    # It's a path to a file - use it directly
+    CREDS_FILE="$GOOGLE_APPLICATION_CREDENTIALS"
+    CLEANUP_CREDS=false
+else
+    # It's JSON content - write to temp file
+    CREDS_FILE=$(mktemp)
+    echo "$GOOGLE_APPLICATION_CREDENTIALS" > "$CREDS_FILE"
+    CLEANUP_CREDS=true
+fi
+
+# Authenticate with gcloud
+gcloud auth activate-service-account --key-file="$CREDS_FILE" --quiet
+
+# Configure docker/podman credential helper for Artifact Registry
+gcloud auth configure-docker us-east1-docker.pkg.dev --quiet
+
+# Clean up temp file if we created one
+if [[ "$CLEANUP_CREDS" == "true" ]]; then
+    rm -f "$CREDS_FILE"
+fi
+
+echo "Artifact Registry authentication configured"

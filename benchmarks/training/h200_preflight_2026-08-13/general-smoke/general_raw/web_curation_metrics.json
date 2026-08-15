@@ -1,0 +1,5262 @@
+{
+  "config": {
+    "batching": {
+      "chunk_size": 64,
+      "chunk_timeout": 5.0,
+      "strategy": "batched"
+    },
+    "metrics": {
+      "collect_gpu": false,
+      "collect_vllm_server": true,
+      "enabled": true,
+      "experiment_id": "6eb47bf4475c",
+      "model_hash": "039fb6e9b691df6a",
+      "model_name": "/root/web-curation-lab/outputs/preflight/qwen3_150m_wide/hf-fp32",
+      "reporters": [
+        "file"
+      ],
+      "vllm_poll_interval_s": 10.0
+    },
+    "model_hash": "039fb6e9b691df6a",
+    "name": "default",
+    "provider": {
+      "dtype": "bfloat16",
+      "kind": "vllm_server",
+      "max_model_len": 2048,
+      "model": "/root/web-curation-lab/outputs/preflight/qwen3_150m_wide/hf-fp32"
+    },
+    "required_secrets": [],
+    "scaffold": null,
+    "system_prompt": null,
+    "tool_choice": "auto",
+    "tool_names": []
+  },
+  "errors": [],
+  "experiment_duration_seconds": 113.45659232139587,
+  "experiment_id": "6eb47bf4475c",
+  "provider_init_seconds": {
+    "hf-fp32-w0": 48.67656373977661
+  },
+  "summary": {
+    "arc:rc:olmo3base": {
+      "metric": "primary_score:average",
+      "score": 0.2
+    },
+    "arc_challenge:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "arc_easy:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "basic_skills:rc:olmo3base": {
+      "metric": "primary_score:average",
+      "score": 0.23333333333333336
+    },
+    "basic_skills_arithmetic:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "basic_skills_coding:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "basic_skills_common_knowledge:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "basic_skills_logical_reasoning:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "basic_skills_pattern:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "basic_skills_string_operations:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "coqa:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "csqa:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "drop:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "hellaswag:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "jeopardy:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "lab_bench_dbqa:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "lab_bench_protocolqa:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "lambada": {
+      "metric": "greedy_accuracy:logprob",
+      "score": 0.0
+    },
+    "medmcqa:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "medqa_en:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu:rc:olmo3base": {
+      "metric": "primary_score:average",
+      "score": 0.2631578947368421
+    },
+    "mmlu_abstract_algebra:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "mmlu_anatomy:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu_astronomy:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "mmlu_business_ethics:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "mmlu_clinical_knowledge:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "mmlu_college_biology:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu_college_chemistry:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.6
+    },
+    "mmlu_college_computer_science:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu_college_mathematics:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "mmlu_college_medicine:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "mmlu_college_physics:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu_computer_security:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "mmlu_conceptual_physics:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.6
+    },
+    "mmlu_econometrics:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "mmlu_electrical_engineering:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "mmlu_elementary_mathematics:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "mmlu_formal_logic:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "mmlu_global_facts:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu_high_school_biology:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu_high_school_chemistry:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "mmlu_high_school_computer_science:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "mmlu_high_school_european_history:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "mmlu_high_school_geography:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu_high_school_government_and_politics:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "mmlu_high_school_macroeconomics:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "mmlu_high_school_mathematics:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "mmlu_high_school_microeconomics:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "mmlu_high_school_physics:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "mmlu_high_school_psychology:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "mmlu_high_school_statistics:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "mmlu_high_school_us_history:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu_high_school_world_history:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu_human_aging:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "mmlu_human_sexuality:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "mmlu_international_law:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "mmlu_jurisprudence:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu_logical_fallacies:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu_machine_learning:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu_management:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "mmlu_marketing:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "mmlu_medical_genetics:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.6
+    },
+    "mmlu_miscellaneous:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu_moral_disputes:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "mmlu_moral_scenarios:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu_nutrition:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu_philosophy:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "mmlu_prehistory:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "mmlu_professional_accounting:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu_professional_law:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.6
+    },
+    "mmlu_professional_medicine:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "mmlu_professional_psychology:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.0
+    },
+    "mmlu_public_relations:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "mmlu_security_studies:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.8
+    },
+    "mmlu_sociology:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "mmlu_us_foreign_policy:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.8
+    },
+    "mmlu_virology:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.6
+    },
+    "mmlu_world_religions:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.6
+    },
+    "naturalqs:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "olmobase:easy:qa:rc": {
+      "metric": "primary_score:average",
+      "score": 0.2577100646352724
+    },
+    "piqa:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.6
+    },
+    "qasper_yesno:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "sciq:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "sciriff_yesno:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    },
+    "socialiqa:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.6
+    },
+    "squad:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.4
+    },
+    "winogrande:rc:olmo3base": {
+      "metric": "accuracy:logprob",
+      "score": 0.2
+    }
+  },
+  "tasks": [
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "professional_law"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_professional_law:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 14.819899082183838,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.6
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_professional_law:rc:olmo3base",
+      "task_hash": "ba0235d00b22d118"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "high_school_biology"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_high_school_biology:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 14.821334600448608,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_high_school_biology:rc:olmo3base",
+      "task_hash": "e6216e82e01a5972"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "international_law"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_international_law:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 14.823126792907715,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_international_law:rc:olmo3base",
+      "task_hash": "57d707cd8ffe6efe"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "global_facts"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_global_facts:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 14.824507236480713,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_global_facts:rc:olmo3base",
+      "task_hash": "617f9e7ef967c57e"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "college_medicine"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_college_medicine:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 14.825268745422363,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_college_medicine:rc:olmo3base",
+      "task_hash": "e6687645d8d3a826"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "medical_genetics"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_medical_genetics:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 14.827731609344482,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.6
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_medical_genetics:rc:olmo3base",
+      "task_hash": "d35ef3dbae71e922"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "high_school_statistics"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_high_school_statistics:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 18.471351861953735,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_high_school_statistics:rc:olmo3base",
+      "task_hash": "8a69c36c55437703"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "us_foreign_policy"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_us_foreign_policy:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 18.47290349006653,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.8
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_us_foreign_policy:rc:olmo3base",
+      "task_hash": "d08eb153ec270fd6"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "human_sexuality"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_human_sexuality:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 18.47443461418152,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_human_sexuality:rc:olmo3base",
+      "task_hash": "11d910bcb5baf976"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "human_aging"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_human_aging:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 18.476022720336914,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_human_aging:rc:olmo3base",
+      "task_hash": "96c57536a990d61a"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "marketing"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_marketing:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 18.47676134109497,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_marketing:rc:olmo3base",
+      "task_hash": "ceb7194878d942ec"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "logical_fallacies"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_logical_fallacies:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 18.47794222831726,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_logical_fallacies:rc:olmo3base",
+      "task_hash": "b9d75f7d314c7b53"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "professional_psychology"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_professional_psychology:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 18.479331254959106,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_professional_psychology:rc:olmo3base",
+      "task_hash": "fe31b13b9a27a483"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "virology"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_virology:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 18.480284452438354,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.6
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_virology:rc:olmo3base",
+      "task_hash": "bc550f6f1cfb1a00"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "college_computer_science"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_college_computer_science:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 18.481115341186523,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_college_computer_science:rc:olmo3base",
+      "task_hash": "adfa6e742343c72b"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "public_relations"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_public_relations:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 18.482032537460327,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_public_relations:rc:olmo3base",
+      "task_hash": "f1e680d0b3f86129"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "world_religions"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_world_religions:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 18.482808351516724,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.6
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_world_religions:rc:olmo3base",
+      "task_hash": "a4be64c008a65a14"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "college_chemistry"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_college_chemistry:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 18.4836483001709,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.6
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_college_chemistry:rc:olmo3base",
+      "task_hash": "3979c45824270674"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "econometrics"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_econometrics:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 18.484453439712524,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_econometrics:rc:olmo3base",
+      "task_hash": "17fbae4b09e55910"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "futurehouse/lab-bench",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "DbQA"
+        },
+        "dependencies": null,
+        "fewshot_seed": 1234,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "lab_bench_dbqa",
+        "num_fewshot": 3,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "MultipleChoiceScorer",
+          "type": "AccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1024,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "train"
+      },
+      "duration_seconds": 18.73489212989807,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:multiple_choice",
+      "task": "lab_bench_dbqa:olmo3base",
+      "task_hash": "e13bc63f42f53bd7"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "allenai/ai2_arc",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "ARC-Easy"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": "olmes_arc_easy_fixed",
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "arc_easy",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 19.54514479637146,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "arc_easy:rc:olmo3base",
+      "task_hash": "dd18cb0a12ee9a52"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "allenai/qasper-yesno",
+          "revision": null,
+          "source_type": "hf",
+          "split": "train",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 1234,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobMCAccuracyMetric"
+          }
+        ],
+        "name": "qasper_yesno",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "train"
+      },
+      "duration_seconds": 19.547616958618164,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "qasper_yesno:rc:olmo3base",
+      "task_hash": "e9a6a30d11eceea3"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": "hf://datasets/allenai/basic-skills/coding/validation.json",
+          "path": "json",
+          "revision": null,
+          "source_type": "hf",
+          "split": "train",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 1234,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerTokenMCAccuracyMetric"
+          }
+        ],
+        "name": "basic_skills_coding",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerTokenMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "validation"
+      },
+      "duration_seconds": 19.548605918884277,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "basic_skills_coding:rc:olmo3base",
+      "task_hash": "6f351eaf36deb263"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "high_school_physics"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_high_school_physics:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.138140439987183,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_high_school_physics:rc:olmo3base",
+      "task_hash": "f132b9e8cc18da75"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "high_school_european_history"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_high_school_european_history:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.139465808868408,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_high_school_european_history:rc:olmo3base",
+      "task_hash": "eb1a68ef92f6d40f"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "business_ethics"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_business_ethics:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.141112565994263,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_business_ethics:rc:olmo3base",
+      "task_hash": "b44b41c66f75dc3b"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "philosophy"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_philosophy:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.14207363128662,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_philosophy:rc:olmo3base",
+      "task_hash": "4a6c67c38bca3e72"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "college_mathematics"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_college_mathematics:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.143107414245605,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_college_mathematics:rc:olmo3base",
+      "task_hash": "475c63fcb18bb77e"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "machine_learning"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_machine_learning:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.14383602142334,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_machine_learning:rc:olmo3base",
+      "task_hash": "680ebb2025effe68"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "high_school_microeconomics"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_high_school_microeconomics:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.144638538360596,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_high_school_microeconomics:rc:olmo3base",
+      "task_hash": "f41ff3e52a7c1c0a"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "prehistory"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_prehistory:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.145360469818115,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_prehistory:rc:olmo3base",
+      "task_hash": "cc54f2fa3f566a5f"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "professional_accounting"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_professional_accounting:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.146189212799072,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_professional_accounting:rc:olmo3base",
+      "task_hash": "7a618b68147fa5e5"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "elementary_mathematics"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_elementary_mathematics:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.147236585617065,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_elementary_mathematics:rc:olmo3base",
+      "task_hash": "5ca8aab1e1fdd15b"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "miscellaneous"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_miscellaneous:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.147974491119385,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_miscellaneous:rc:olmo3base",
+      "task_hash": "360573b5033cdab0"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "clinical_knowledge"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_clinical_knowledge:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.148712873458862,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_clinical_knowledge:rc:olmo3base",
+      "task_hash": "d4cf5998bce2e324"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "college_biology"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_college_biology:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.14944076538086,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_college_biology:rc:olmo3base",
+      "task_hash": "2cbc963557d535c1"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "moral_disputes"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_moral_disputes:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.15021538734436,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_moral_disputes:rc:olmo3base",
+      "task_hash": "23f162876fdb5f28"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "high_school_government_and_politics"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_high_school_government_and_politics:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.151002407073975,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_high_school_government_and_politics:rc:olmo3base",
+      "task_hash": "7fae60f54d65dc07"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "high_school_macroeconomics"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_high_school_macroeconomics:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.151777029037476,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_high_school_macroeconomics:rc:olmo3base",
+      "task_hash": "05ef318e1b610488"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "high_school_psychology"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_high_school_psychology:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.15265989303589,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_high_school_psychology:rc:olmo3base",
+      "task_hash": "8611b5d4b0cc8000"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "high_school_computer_science"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_high_school_computer_science:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.153676748275757,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_high_school_computer_science:rc:olmo3base",
+      "task_hash": "4ab127c66d997706"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "high_school_geography"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_high_school_geography:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.154539585113525,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_high_school_geography:rc:olmo3base",
+      "task_hash": "a43e2c26014b8b4a"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "high_school_mathematics"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_high_school_mathematics:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.155261039733887,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_high_school_mathematics:rc:olmo3base",
+      "task_hash": "4a328623ad627d37"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "anatomy"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_anatomy:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 22.15613293647766,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_anatomy:rc:olmo3base",
+      "task_hash": "28ab63e4d1e72a37"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "allenai/squad_mc",
+          "revision": null,
+          "source_type": "hf",
+          "split": "validation",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": "squad_mc_fixed",
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "squad:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 1234,
+        "split": "validation"
+      },
+      "duration_seconds": 23.409175872802734,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "squad:rc:olmo3base",
+      "task_hash": "6887de32dcf2c991"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "social_i_qa",
+          "revision": "refs/convert/parquet",
+          "source_type": "hf",
+          "split": "validation",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": "olmes_socialiqa_fixed",
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "socialiqa",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "validation"
+      },
+      "duration_seconds": 23.410683393478394,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.6
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "socialiqa:rc:olmo3base",
+      "task_hash": "756c1126d88b14a7"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": "hf://datasets/allenai/basic-skills/logical_reasoning/validation.json",
+          "path": "json",
+          "revision": null,
+          "source_type": "hf",
+          "split": "train",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 1234,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerTokenMCAccuracyMetric"
+          }
+        ],
+        "name": "basic_skills_logical_reasoning",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerTokenMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "validation"
+      },
+      "duration_seconds": 23.411513566970825,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "basic_skills_logical_reasoning:rc:olmo3base",
+      "task_hash": "cce160a50a8cff82"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "allenai/nq_open_mc",
+          "revision": null,
+          "source_type": "hf",
+          "split": "validation",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": "nq_mc_fixed",
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "naturalqs:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 1234,
+        "split": "validation"
+      },
+      "duration_seconds": 23.41253638267517,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "naturalqs:rc:olmo3base",
+      "task_hash": "1e3e2bfdaed32fb2"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "commonsense_qa",
+          "revision": null,
+          "source_type": "hf",
+          "split": "validation",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": "olmes_csqa_fixed",
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobUncondMCAccuracyMetric"
+          }
+        ],
+        "name": "csqa",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobUncondMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "validation"
+      },
+      "duration_seconds": 23.413257837295532,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "csqa:rc:olmo3base",
+      "task_hash": "e673a6927a8a4b38"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "piqa",
+          "revision": "refs/convert/parquet",
+          "source_type": "hf",
+          "split": "validation",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": "olmes_piqa_fixed",
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "piqa",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "validation"
+      },
+      "duration_seconds": 23.414238691329956,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.6
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "piqa:rc:olmo3base",
+      "task_hash": "1531e63399f0b38b"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "allenai/coqa_mc",
+          "revision": null,
+          "source_type": "hf",
+          "split": "validation",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "coqa:rc",
+        "num_fewshot": 0,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "validation"
+      },
+      "duration_seconds": 23.415783405303955,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "coqa:rc:olmo3base",
+      "task_hash": "73f55cf7440ec4e1"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "davidheineman/medqa-en",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 1234,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "medqa_en",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 23.416812658309937,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "medqa_en:rc:olmo3base",
+      "task_hash": "555eeba78e256ee2"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": "hf://datasets/allenai/basic-skills/pattern/validation.json",
+          "path": "json",
+          "revision": null,
+          "source_type": "hf",
+          "split": "train",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 1234,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerTokenMCAccuracyMetric"
+          }
+        ],
+        "name": "basic_skills_pattern",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerTokenMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "validation"
+      },
+      "duration_seconds": 23.417688846588135,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "basic_skills_pattern:rc:olmo3base",
+      "task_hash": "fe2b9ccab97635b6"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "EleutherAI/lambada_openai",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "greedy_accuracy",
+            "scorer": "LogprobScorer",
+            "type": "GreedyAccuracyMetric"
+          },
+          {
+            "name": "bits_per_byte",
+            "scorer": "BitsPerByteScorer",
+            "type": "BPBMetricInstanceAvg"
+          }
+        ],
+        "name": "lambada",
+        "num_fewshot": 0,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "greedy_accuracy",
+          "scorer": "LogprobScorer",
+          "type": "GreedyAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 23.418437719345093,
+      "metrics": {
+        "bits_per_byte": {
+          "bits_per_byte": 4.671386411954844
+        },
+        "greedy_accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "greedy_accuracy:logprob",
+      "task": "lambada",
+      "task_hash": "f55bc1ed06e5d1d3"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "allenai/ai2_arc",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "ARC-Challenge"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": "olmes_arc_challenge_fixed",
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobUncondMCAccuracyMetric"
+          }
+        ],
+        "name": "arc_challenge",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobUncondMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 23.419210195541382,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "arc_challenge:rc:olmo3base",
+      "task_hash": "61ee1b7f12fac3af"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "futurehouse/lab-bench",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "ProtocolQA"
+        },
+        "dependencies": null,
+        "fewshot_seed": 1234,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "lab_bench_protocolqa",
+        "num_fewshot": 3,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "MultipleChoiceScorer",
+          "type": "AccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1024,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "train"
+      },
+      "duration_seconds": 23.79791498184204,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:multiple_choice",
+      "task": "lab_bench_protocolqa:olmo3base",
+      "task_hash": "bd7a6ca600d287df"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "security_studies"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_security_studies:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.38573956489563,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.8
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_security_studies:rc:olmo3base",
+      "task_hash": "f509806bc36be2d2"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "formal_logic"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_formal_logic:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.386924982070923,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_formal_logic:rc:olmo3base",
+      "task_hash": "747b8f788241cfa3"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "professional_medicine"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_professional_medicine:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.387754201889038,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_professional_medicine:rc:olmo3base",
+      "task_hash": "f762cf709d5ea2d3"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "management"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_management:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.38876485824585,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_management:rc:olmo3base",
+      "task_hash": "6f2d885b2935c4de"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "high_school_world_history"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_high_school_world_history:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.389513969421387,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_high_school_world_history:rc:olmo3base",
+      "task_hash": "a3c9d0d96f194bbb"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "computer_security"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_computer_security:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.390645027160645,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_computer_security:rc:olmo3base",
+      "task_hash": "3d7ec12594b88dc1"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "astronomy"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_astronomy:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.39158344268799,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_astronomy:rc:olmo3base",
+      "task_hash": "9582ef7366382afa"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "sociology"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_sociology:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.392332553863525,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_sociology:rc:olmo3base",
+      "task_hash": "7f68c81a332dc859"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "college_physics"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_college_physics:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.393132209777832,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_college_physics:rc:olmo3base",
+      "task_hash": "c44acd7f8267379d"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "nutrition"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_nutrition:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.393876314163208,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_nutrition:rc:olmo3base",
+      "task_hash": "bc4c369f8223f23f"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "conceptual_physics"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_conceptual_physics:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.394660711288452,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.6
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_conceptual_physics:rc:olmo3base",
+      "task_hash": "7b8e19a76b78ddcb"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "high_school_chemistry"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_high_school_chemistry:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.39535140991211,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_high_school_chemistry:rc:olmo3base",
+      "task_hash": "963baf7bfa7dc32d"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "high_school_us_history"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_high_school_us_history:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.396106719970703,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_high_school_us_history:rc:olmo3base",
+      "task_hash": "6dd256b9ebbfe295"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "jurisprudence"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_jurisprudence:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.397125720977783,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_jurisprudence:rc:olmo3base",
+      "task_hash": "0966bf660a12de6e"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "moral_scenarios"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_moral_scenarios:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.397849321365356,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_moral_scenarios:rc:olmo3base",
+      "task_hash": "0dc36bb3303e7a91"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "abstract_algebra"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_abstract_algebra:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.398632287979126,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_abstract_algebra:rc:olmo3base",
+      "task_hash": "78fed6d4862527ad"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "cais/mmlu",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": "electrical_engineering"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "mmlu_electrical_engineering:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 1,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.399306058883667,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "mmlu_electrical_engineering:rc:olmo3base",
+      "task_hash": "6ab1cfb8d37d0566"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "openlifescienceai/medmcqa",
+          "revision": null,
+          "source_type": "hf",
+          "split": "validation",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 1234,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "medmcqa",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 1234,
+        "split": "validation"
+      },
+      "duration_seconds": 25.851058959960938,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "medmcqa:rc:olmo3base",
+      "task_hash": "a13e8f0219e599b9"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": "hf://datasets/allenai/basic-skills/arithmetic/validation.json",
+          "path": "json",
+          "revision": null,
+          "source_type": "hf",
+          "split": "train",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 1234,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerTokenMCAccuracyMetric"
+          }
+        ],
+        "name": "basic_skills_arithmetic",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerTokenMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "validation"
+      },
+      "duration_seconds": 25.851988792419434,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "basic_skills_arithmetic:rc:olmo3base",
+      "task_hash": "b96467f2a6d88cea"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "allenai/jeopardy_mc",
+          "revision": null,
+          "source_type": "hf",
+          "split": "test",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": "jeopardy_mc_fixed",
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "jeopardy:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "test"
+      },
+      "duration_seconds": 25.853005409240723,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.4
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "jeopardy:rc:olmo3base",
+      "task_hash": "3268baae75870fa7"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": "hf://datasets/allenai/basic-skills/common_knowledge/validation.json",
+          "path": "json",
+          "revision": null,
+          "source_type": "hf",
+          "split": "train",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 1234,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerTokenMCAccuracyMetric"
+          }
+        ],
+        "name": "basic_skills_common_knowledge",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerTokenMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "validation"
+      },
+      "duration_seconds": 25.85365581512451,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.0
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "basic_skills_common_knowledge:rc:olmo3base",
+      "task_hash": "0258146138ce8f0c"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "winogrande",
+          "revision": null,
+          "source_type": "hf",
+          "split": "validation",
+          "subset": "winogrande_xl"
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": "olmes_winogrande_fixed",
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobMCAccuracyMetric"
+          }
+        ],
+        "name": "winogrande",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "validation"
+      },
+      "duration_seconds": 25.854407787322998,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "winogrande:rc:olmo3base",
+      "task_hash": "4db469c81e4bf88c"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "allenai/hellaswag",
+          "revision": null,
+          "source_type": "hf",
+          "split": "validation",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": "olmes_hellaswag_fixed",
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "hellaswag",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "validation"
+      },
+      "duration_seconds": 25.855149745941162,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "hellaswag:rc:olmo3base",
+      "task_hash": "131dd1d7dba16a84"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "allenai/sciriff-yesno",
+          "revision": null,
+          "source_type": "hf",
+          "split": "train",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 1234,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobMCAccuracyMetric"
+          }
+        ],
+        "name": "sciriff_yesno",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "train"
+      },
+      "duration_seconds": 25.856101751327515,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "sciriff_yesno:rc:olmo3base",
+      "task_hash": "186b1983a8e835ba"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "allenai/sciq",
+          "revision": null,
+          "source_type": "hf",
+          "split": "validation",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 1234,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "sciq",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "validation"
+      },
+      "duration_seconds": 25.857029914855957,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "sciq:rc:olmo3base",
+      "task_hash": "2a91b68a8b8ebede"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": "hf://datasets/allenai/basic-skills/string_operations/validation.json",
+          "path": "json",
+          "revision": null,
+          "source_type": "hf",
+          "split": "train",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 1234,
+        "fewshot_source": null,
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerTokenMCAccuracyMetric"
+          }
+        ],
+        "name": "basic_skills_string_operations",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerTokenMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 512,
+          "num_samples": 1,
+          "stop_sequences": null,
+          "temperature": 0.0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "validation"
+      },
+      "duration_seconds": 25.8578143119812,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "basic_skills_string_operations:rc:olmo3base",
+      "task_hash": "3f47b32be9490b9a"
+    },
+    {
+      "config": {
+        "answer_extractor": null,
+        "data_source": {
+          "data_files": null,
+          "path": "allenai/drop_mc",
+          "revision": null,
+          "source_type": "hf",
+          "split": "validation",
+          "subset": null
+        },
+        "dependencies": null,
+        "fewshot_seed": 42,
+        "fewshot_source": "olmes_drop_mc_fixed",
+        "formatter": null,
+        "limit": 5,
+        "max_length": null,
+        "metrics": [
+          {
+            "name": "accuracy",
+            "scorer": "LogprobScorer",
+            "type": "LogprobPerCharMCAccuracyMetric"
+          }
+        ],
+        "name": "drop:rc",
+        "num_fewshot": 5,
+        "output_score_aggregation": "max",
+        "primary_metric": {
+          "name": "accuracy",
+          "scorer": "LogprobScorer",
+          "type": "LogprobPerCharMCAccuracyMetric"
+        },
+        "sampling_params": {
+          "do_sample": true,
+          "logprobs": null,
+          "max_tokens": 100,
+          "num_samples": 1,
+          "stop_sequences": [
+            "Passage:",
+            "Question:",
+            "\n\n"
+          ],
+          "temperature": 0,
+          "top_k": null,
+          "top_p": null,
+          "truncate_prompt_tokens": null,
+          "truncation_side": null
+        },
+        "seed": 42,
+        "split": "validation"
+      },
+      "duration_seconds": 26.17454719543457,
+      "metrics": {
+        "accuracy": {
+          "logprob": 0.2
+        }
+      },
+      "num_instances": 5,
+      "primary_metric": "accuracy:logprob",
+      "task": "drop:rc:olmo3base",
+      "task_hash": "24180281fb47df84"
+    }
+  ],
+  "timestamp": "2026-08-13T21:24:20.332477",
+  "web_curation_provenance": {
+    "command": [
+      "/root/.local/bin/uv",
+      "run",
+      "--python",
+      "3.12",
+      "--project",
+      "/root/web-curation-lab/third_party/olmo-eval",
+      "--frozen",
+      "--no-group",
+      "dev",
+      "olmo-eval",
+      "run",
+      "--harness",
+      "default",
+      "--override",
+      "provider.kind=vllm_server",
+      "--override",
+      "provider.dtype=bfloat16",
+      "--override",
+      "provider.max_model_len=2048",
+      "--model",
+      "/root/web-curation-lab/outputs/preflight/qwen3_150m_wide/hf-fp32",
+      "--task",
+      "olmobase:easy:qa:rc",
+      "--override",
+      "limit=5",
+      "--num-gpus",
+      "1",
+      "--parallelism",
+      "2",
+      "--output-dir",
+      "/root/web-curation-lab/outputs/preflight/qwen3_150m_wide/general-smoke/general_raw"
+    ],
+    "elapsed_seconds": 118.8649119239999,
+    "framework": "OLMo Eval",
+    "framework_lock_sha256": "73c3b71f13e69f10a6e5d519a10f3386f026716b8344a48028d6ce9f1ef7c21d",
+    "framework_revision": "479f90ea137a2a044a33aa7c81128d400bd027c4",
+    "requested_suites": [
+      "olmobase:easy:qa:rc"
+    ],
+    "schema_version": 1
+  }
+}

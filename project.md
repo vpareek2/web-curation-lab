@@ -61,20 +61,18 @@ The actual experiment then uses:
 	•	identical model initialization, tokenizer and architecture;
 	•	BF16, FlashAttention and DDP—FSDP is unnecessary at this scale;
 	•	the same global batch size and optimizer;
-	•	a fixed token-based warmup followed by a stable learning-rate phase;
+	•	the same percentage-based WSD schedule (current defaults: 10% warmup and 15% cooldown);
 	•	one pass over all tokens surviving each stage.
-The learning-rate schedule should not be independently compressed into a cosine schedule for every dataset size, because that would change optimization behavior along with the data.
-During the S0 100B run, save checkpoints at the token counts corresponding to the later datasets—for example 8B, 15B, 30B and 60B. This produces two important comparisons without additional raw-data runs:
+Because WSD phases are percentages of each run, equal-token S0 comparisons must be independent runs from the shared initialization. Ordinary checkpoints from the 100B S0 run have a different learning-rate history and are not valid token-matched baselines. Each matched run uses raw S0 data, the retained stage's exact token budget, and identical optimizer, batch, sequence length, seed, and WSD percentages. This produces two important comparisons:
 	•	S4 at 8B versus S0 at 8B: quality at equal training compute.
 	•	S4 at 8B versus S0 at 100B: quality versus realistic total cost.
 At the target throughput, the five primary runs should require roughly 25–35 eight-H100 node-hours in total. A second seed should be reserved for S0 and S4 if the initial score difference is close enough that variance matters.
 
 Benchmarking strategy
 The primary metric should be held-out cross-entropy by domain, using Paloma. Paloma measures language-model fit across 546 English and code domains, making it more informative than one aggregate web-perplexity number. It should reveal whether a filter improves general web language while damaging code, forums, technical writing or other distributions. (arXiv)
-The secondary metric should be the current DCLM Core v2 evaluation. DCLM’s Core score aggregates 22 tasks selected to provide relatively low-variance signal even for small models. For a compact blog evaluation, the most informative individual tasks are likely HellaSwag, PIQA, ARC-Easy, BoolQ, LAMBADA, OpenBookQA and WinoGrande. MMLU can be reported, but should not be the headline metric if the 100M model remains near chance. (arXiv)
-Use the latest DCLM Core v2 calculation: the project corrected its centered-score baselines in September 2025, so older v1 results are not directly numerically comparable. Standard downstream tasks can be executed through lm-evaluation-harness. (GitHub)
+The general benchmark metric uses the modern OLMo Eval `olmobase:easy:qa:rc` suite. It targets base-model evaluation and reports a reproducible average-of-averages across reading-comprehension formulations; the pinned version expands to 83 task configurations. Preserve every task score and raw prediction; the suite aggregate is useful for navigation, while individual tasks explain regressions. These results must not be called DCLM Core because the prompts, tasks, and aggregation differ.
 The final report should show:
-	1	Paloma loss and DCLM Core score versus training tokens.
+	1	Paloma bits/byte and OLMo Eval QA score versus training tokens.
 	2	The same scores versus eight-H100 node-hours.
 	3	Documents and tokens retained at every stage.
 	4	Per-domain performance changes.
@@ -107,7 +105,7 @@ The supporting stack would be:
 	•	Resiliparse only for the optional WARC extraction experiment;
 	•	fastText for language identification and inexpensive quality scoring;
 	•	Hugging Face Tokenizers for final token accounting;
-	•	Paloma plus lm-evaluation-harness for evaluation.
+	•	Paloma plus the pinned OLMo Eval workbench for evaluation.
 Dolma is a reasonable alternative if its Rust Bloom-filter deduplication is more convenient. NeMo Curator becomes attractive if the project expands enough to justify GPU-accelerated exact, fuzzy or semantic deduplication, but it is unnecessary for the initial 100B-token PoC. (GitHub)
 The project should not implement WARC parsing, distributed MinHash, tokenizer orchestration or evaluation infrastructure from scratch. Custom code should be limited to deterministic corpus sampling, stage manifests, experimental filters and reporting.
 

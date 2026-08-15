@@ -38,6 +38,7 @@ upgrade the vendored TorchTitan revision casually.
 - `infra`: container and cluster launch definitions.
 - `docs`: design decisions and blog material.
 - `third_party/torchtitan`: vendored upstream TorchTitan source.
+- `third_party/olmo-eval`: pinned OLMo Eval source and uv lock.
 
 See [`project.md`](project.md) for the initial project proposal.
 
@@ -89,3 +90,29 @@ The `hybrid` extra provides the Qwen3.5 variants' Flash Linear Attention
 dependency and the prebuilt Hopper FlashAttention-3 kernel used by every
 varlen-attention recipe. It is included in the development setup above; omit
 it only when working exclusively with the dense Qwen3 recipes.
+
+## Evaluation
+
+Evaluation has two first-class outputs: document-separated Paloma statistics
+(headline: bits/byte) and the OLMo Eval `olmobase:easy:qa:rc` general suite.
+Prepare the gated Paloma and frozen general-suite assets before data curation:
+
+```bash
+uv sync --project evaluation --group dev
+uv run --project evaluation web-curation-eval prepare-assets \
+  --config configs/evaluation/full.toml
+```
+
+Then evaluate a packaged final checkpoint with one command:
+
+```bash
+uv run --project evaluation web-curation-eval run \
+  --model outputs/<run>/hf \
+  --config configs/evaluation/full.toml \
+  --output outputs/evaluations/<run-id> \
+  --num-gpus 8
+```
+
+See [`evaluation/README.md`](evaluation/README.md) for packaging and GPU
+preflight commands. Full Paloma and general benchmarks require GPU compute;
+the deterministic unit tests run locally.

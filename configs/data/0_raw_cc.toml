@@ -44,3 +44,13 @@ target_training_tokens = 100000000000
 download_chunk_bytes = 8388608
 download_timeout_seconds = 120
 download_retries = 5
+
+[materialize]
+inventory_manifest = "outputs/data/0_raw_cc/pilot_10/downloads_manifest.json"
+source_dir = "outputs/data/0_raw_cc/source"
+work_dir = "outputs/data/0_raw_cc/training/tokenized"
+output_root = "outputs/data/0_raw_cc/training/shards"
+sequence_length = 2048
+samples_per_shard = 500000
+shuffle_seed = 42
+token_size_bytes = 2

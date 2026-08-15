@@ -8,6 +8,10 @@ from pathlib import Path
 
 from web_curation_lab.pipeline.stages.raw_cc.audit import load_audit_config, run_audit
 from web_curation_lab.pipeline.stages.raw_cc.census import load_census_config, run_census
+from web_curation_lab.pipeline.stages.raw_cc.materialize import (
+    load_materialize_config,
+    run_materialization,
+)
 from web_curation_lab.pipeline.stages.raw_cc.pilot import load_pilot_config, run_pilot
 from web_curation_lab.pipeline.stages.raw_cc.probe import load_probe_config, run_probe
 from web_curation_lab.training.datatrove_loader import create_training_view
@@ -46,6 +50,17 @@ def build_parser() -> argparse.ArgumentParser:
     )
     pilot_parser.add_argument("--config", type=Path, required=True)
 
+    materialize_parser = subparsers.add_parser(
+        "materialize",
+        help="Materialize a resumable 0_raw_cc inventory into DataTrove token shards.",
+    )
+    materialize_parser.add_argument("--config", type=Path, required=True)
+    materialize_parser.add_argument(
+        "--limit",
+        type=int,
+        help="Process only this deterministic prefix of the inventory.",
+    )
+
     view_parser = subparsers.add_parser(
         "create-training-view",
         help="Freeze an exact batch-aligned view over DataTrove .ds shards.",
@@ -80,6 +95,11 @@ def main(argv: list[str] | None = None) -> None:
     if args.command == "pilot":
         config, census_config = load_pilot_config(args.config)
         summary = run_pilot(config, census_config)
+        print(json.dumps(summary, indent=2, sort_keys=True))
+        return
+    if args.command == "materialize":
+        config = load_materialize_config(args.config)
+        summary = run_materialization(config, limit=args.limit)
         print(json.dumps(summary, indent=2, sort_keys=True))
         return
     if args.command == "create-training-view":

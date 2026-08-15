@@ -4,6 +4,75 @@ Purpose: track source-corpus selection, deterministic sampling, stable document
 identity, filter stages, deduplication, token accounting, manifests, and data
 pipeline performance.
 
+## 2026-08-14 [codex] Implement resumable raw-CC materialization
+
+Context:
+
+- Added the missing serialization layer after the frozen `0_raw_cc-v1` reader.
+  DataTrove performs batched Mistral tokenization, appends EOS, and
+  deterministically shuffles documents inside each WARC. Project code adds
+  source integrity checks, per-WARC atomic resume, deterministic WARC ordering,
+  and streaming sample-aligned shard assembly.
+- The materializer consumes an inventory manifest rather than rediscovering
+  files. Machine-specific paths in a downloaded manifest are intentionally
+  resolved by basename under the configured `source_dir`.
+
+Commands:
+
+```bash
+cd /path/to/web-curation-lab
+uv run --extra data pytest tests/pipeline/test_raw_cc_materialize.py -q
+uv run --extra data pytest tests/pipeline -q
+uv run --extra data ruff check \
+  src/web_curation_lab/pipeline/stages/raw_cc/materialize.py \
+  src/web_curation_lab/pipeline/cli.py \
+  tests/pipeline/test_raw_cc_materialize.py
+
+# Bounded first cloud pilot; not run during local implementation.
+uv run --frozen --extra data web-curation-data materialize \
+  --config configs/data/0_raw_cc.toml \
+  --limit 1
+```
+
+Artifacts:
+
+- Materializer:
+  `src/web_curation_lab/pipeline/stages/raw_cc/materialize.py`
+- CLI and tracked production defaults:
+  `src/web_curation_lab/pipeline/cli.py` and `configs/data/0_raw_cc.toml`
+- TDD coverage: `tests/pipeline/test_raw_cc_materialize.py`
+- Planned ignored outputs:
+  `outputs/data/0_raw_cc/training/tokenized/` and
+  `outputs/data/0_raw_cc/training/shards/materialized-*/`
+
+Result:
+
+- Per-WARC outputs are written to temporary directories and atomically
+  published with source, policy, tokenizer, dependency, artifact-size, and
+  SHA-256 identity. Exact reruns validate and reuse them; corrupted sources or
+  completed artifacts fail loudly.
+- The assembler concatenates across WARC boundaries in bounded reads, writes
+  fixed shards containing 500,000 complete 2,049-token physical samples, and
+  discards only the final incomplete sample tail. It records source tokens,
+  retained tokens, discarded tail, samples, EOS boundaries, shard hashes, and
+  index hashes.
+- The final 100B cap is intentionally not duplicated here. The existing
+  training-view command selects the exact number of complete global batches
+  from all materialized samples.
+- Six materializer tests, all 16 pipeline tests, and the full data-extra suite
+  with 45 passes and 13 expected macOS/Triton skips pass. Scoped Ruff, uv lock,
+  and diff whitespace checks also pass. The end-to-end fixture
+  uses the pinned Mistral tokenizer, preserves raw HTML, appends EOS, resumes
+  without rewriting, creates a frozen training view, and loads through the
+  production DataTrove training dataset.
+- No real WARC was materialized during this local implementation pass.
+
+Next:
+
+- Push the implementation, pull it onto the active GPU node, run the recorded
+  one-WARC command, and compare its token/document totals with the preserved
+  census before expanding the inventory.
+
 ## 2026-08-14 [codex] Accept DataTrove loader after GPU validation
 
 Context:

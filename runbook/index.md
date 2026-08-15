@@ -29,12 +29,14 @@ current conclusions. Keep it factual and command-oriented.
 - **Training scale**: target experiment starts at up to 100B retained tokens on
   an 8xH100 node; runtime remains an estimate until production batch size and
   steady-state throughput are measured on that topology.
-- **Data**: DataTrove v0.9.0 is vendored; bounded inspection and full one-WARC
-  census and decision-audit paths for `0_raw_cc` are implemented and locally
+- **Data**: DataTrove v0.9.0 is vendored; bounded inspection, full one-WARC
+  census, decision-audit, and resumable training-shard materialization paths for
+  `0_raw_cc` are implemented and locally
   validated. The finalized one-file census measured 1.630B training tokens,
   and the deterministic ten-WARC pilot measured a 1.598B-token mean with 1.58%
   coefficient of variation. The resulting estimate is 63 WARCs for 100B; the
-  exact inventory and packed-token cap are not yet frozen. The audit supports the current MIME
+  exact inventory and packed-token cap are not yet frozen. The materializer has
+  only fixture-level validation; its one-WARC cloud pilot remains pending. The audit supports the current MIME
   routing. Mechanical policy revision `0_raw_cc-v1` now uses a documented
   best-effort replacement fallback after strict decoding candidates fail. The
   provisional schedule uses a fixed Common Crawl

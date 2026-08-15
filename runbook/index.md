@@ -35,8 +35,10 @@ current conclusions. Keep it factual and command-oriented.
   validated. The finalized one-file census measured 1.630B training tokens,
   and the deterministic ten-WARC pilot measured a 1.598B-token mean with 1.58%
   coefficient of variation. The resulting estimate is 63 WARCs for 100B; the
-  exact inventory and packed-token cap are not yet frozen. The materializer has
-  only fixture-level validation; its one-WARC cloud pilot remains pending. The audit supports the current MIME
+  exact inventory and packed-token cap are not yet frozen. A real one-WARC
+  materialization pilot now passes source integrity, EOS, exact document-index,
+  sample alignment, hash, and training-loader checks. It also corrected an old
+  BOS-inclusive census overcount of one token per document. The audit supports the current MIME
   routing. Mechanical policy revision `0_raw_cc-v1` now uses a documented
   best-effort replacement fallback after strict decoding candidates fail. The
   provisional schedule uses a fixed Common Crawl

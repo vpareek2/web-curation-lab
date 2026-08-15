@@ -4,6 +4,80 @@ Purpose: track cloud setup, benchmark and training queues, environment locks,
 artifact retrieval, failures, and measured GPU results without recording
 private connection details.
 
+## 2026-08-14 [codex] Complete one-WARC raw-CC materialization pilot
+
+Context:
+
+- Copied the frozen ten-WARC inventory manifest to the active node, downloaded
+  only its first WARC directly from Common Crawl, and verified its byte count
+  and SHA-256 before processing.
+- Ran the production materializer with `--limit 1`, corrected a BOS/EOS census
+  accounting error and literal-EOS boundary inference exposed by the result,
+  then regenerated only the final assembly from the valid resumable per-WARC
+  artifact under schema v2.
+
+Commands:
+
+```bash
+cd /path/to/web-curation-lab
+curl --fail --location --retry 5 --continue-at - \
+  <first-frozen-inventory-url> \
+  --output outputs/data/0_raw_cc/source/<warc-filename>
+uv run --frozen --extra data web-curation-data materialize \
+  --config configs/data/0_raw_cc.toml \
+  --limit 1
+uv run --frozen --extra data web-curation-data create-training-view \
+  --dataset-dir \
+    outputs/data/0_raw_cc/training/shards/materialized-e291c9f520c8 \
+  --output outputs/data/0_raw_cc/training/views/2xh100_one_warc.json \
+  --sequence-length 2048 \
+  --global-batch-size 160 \
+  --training-steps 4973 \
+  --seed 42
+```
+
+Artifacts:
+
+- Tracked sanitized evidence:
+  `benchmarks/data/raw_cc_materialization_2026-08-14/`
+- Node-local source and inventory:
+  `outputs/data/0_raw_cc/source/` and
+  `outputs/data/0_raw_cc/pilot_10/downloads_manifest.json`
+- Node-local resumable tokens and accepted schema-v2 shards:
+  `outputs/data/0_raw_cc/training/tokenized/` and
+  `outputs/data/0_raw_cc/training/shards/materialized-e291c9f520c8/`
+- Node-local materialization and view manifests:
+  `outputs/data/0_raw_cc/training/one_warc_materialize.json` and
+  `outputs/data/0_raw_cc/training/views/2xh100_one_warc.json`
+
+Result:
+
+- The 940,246,254-byte source matched inventory SHA-256
+  `d17e1fd199541aba28c5ba3b7834319aa53e1dfaed2679eb83bbc86a19a663e0`.
+- DataTrove materialized 20,833 documents and 1,630,359,019 EOS-terminated
+  tokens. Tokenization reached its shuffle phase after 313.377 seconds.
+- The assembler retained 1,630,358,565 tokens in 795,685 complete physical
+  samples across two shards and explicitly discarded a 454-token final tail.
+- The accepted exact index contains 20,832 retained document ends. One final
+  document end fell in the discarded incomplete-sample tail.
+- The initial result revealed that the old census's content count included one
+  default BOS per document and then added EOS again. Correct content without
+  special tokens is 1,630,338,186; adding one EOS per document gives
+  1,630,359,019, exactly the materialized source total.
+- The first assembly also counted literal token ID 2 occurrences as document
+  boundaries. Schema v2 now validates EOS at every DataTrove document end and
+  carries the exact input indexes through assembly.
+- A global-batch-160 view loaded with verified hashes and shapes `[2048]` for
+  inputs and labels. It contains 4,973 steps, 795,680 samples, and
+  1,629,552,640 predicted tokens; five complete samples remain unused.
+
+Next:
+
+- Update the ten-WARC census summaries under the corrected no-special-token
+  contract or derive the exact one-BOS-per-document correction with explicit
+  provenance, then decide whether to materialize the remaining nine pilot
+  WARCs before freezing the larger source inventory.
+
 ## 2026-08-14 [codex] Validate stateful DataTrove loader on two H100s
 
 Context:

@@ -1,0 +1,68 @@
+{
+  "commit": "81fabf96",
+  "crawl_id": "CC-MAIN-2026-25",
+  "materialization": {
+    "counts": {
+      "discarded_final_tokens": 454,
+      "document_boundaries": 20832,
+      "materialized_tokens": 1630358565,
+      "samples": 795685,
+      "shards": 2,
+      "source_documents": 20833,
+      "source_tokens": 1630359019,
+      "source_warcs": 1
+    },
+    "fingerprint": "e291c9f520c84e052c7b423d005a1e87f8dee8f8de14c616c5501386e04e7add",
+    "samples_per_shard": 500000,
+    "schema_version": 2,
+    "sequence_length": 2048,
+    "shards": [
+      {
+        "bytes": 2049000000,
+        "index_sha256": "9b00355a9bb8917a2756edfe880fe67aad2404d249a1956dec8b1dd6d58631bf",
+        "samples": 500000,
+        "sha256": "5691a23de164f14138b079fb3b24e20b5916acb2a8962afe72d13d7faa115575",
+        "tokens": 1024500000
+      },
+      {
+        "bytes": 1211717130,
+        "index_sha256": "55be70f7519defd4c22bc46e8a500d1006d84a4c540fccbf73a9a0c79d54f038",
+        "samples": 295685,
+        "sha256": "8b88765bbfba3f49d9b089cfe9520925b4fc161deaebe232894419a70aed6c60",
+        "tokens": 605858565
+      }
+    ],
+    "tokenization_phase_seconds": 313.377
+  },
+  "policy_revision": "0_raw_cc-v1",
+  "source": {
+    "bytes": 940246254,
+    "sha256": "d17e1fd199541aba28c5ba3b7834319aa53e1dfaed2679eb83bbc86a19a663e0"
+  },
+  "token_accounting_correction": {
+    "corrected_content_tokens_without_special_tokens": 1630338186,
+    "corrected_training_tokens_with_eos": 1630359019,
+    "documents": 20833,
+    "legacy_bos_inclusive_content_tokens": 1630359019,
+    "legacy_double_special_training_tokens": 1630379852
+  },
+  "tokenizer": {
+    "eos_id": 2,
+    "repo_id": "mistralai/Mistral-7B-v0.1",
+    "revision": "27d67f1b5f57dc0953326b2601d68371d40ea8da",
+    "vocab_size": 32000
+  },
+  "training_view": {
+    "global_batch_size": 160,
+    "input_shape": [
+      2048
+    ],
+    "label_shape": [
+      2048
+    ],
+    "predicted_tokens": 1629552640,
+    "samples": 795680,
+    "steps": 4973,
+    "unused_complete_samples": 5
+  }
+}

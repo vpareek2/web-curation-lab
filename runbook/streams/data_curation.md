@@ -4,6 +4,46 @@ Purpose: track source-corpus selection, deterministic sampling, stable document
 identity, filter stages, deduplication, token accounting, manifests, and data
 pipeline performance.
 
+## 2026-08-14 [codex] Accept one-WARC materialization after accounting correction
+
+Context:
+
+- The first real WARC pilot completed and exposed two pre-scaling accounting
+  issues: Mistral's default postprocessor made the old census content total
+  BOS-inclusive, and scanning token ID 2 cannot distinguish appended EOS from
+  literal `</s>` in web text.
+
+Commands:
+
+- See `runbook/streams/cloud_runs.md` under "Complete one-WARC raw-CC
+  materialization pilot" for exact sanitized commands.
+
+Artifacts:
+
+- Sanitized evidence: `benchmarks/data/raw_cc_materialization_2026-08-14/`
+- Census correction: `src/web_curation_lab/pipeline/stages/raw_cc/census.py`
+- Schema-v2 assembler and validation:
+  `src/web_curation_lab/pipeline/stages/raw_cc/materialize.py`
+
+Result:
+
+- The accepted training contract is content tokenization with special tokens
+  disabled plus exactly one EOS per document; no per-document BOS is stored.
+- The real materialized total is 1,630,359,019 source tokens, matching the
+  corrected census arithmetic exactly. The previous 1,630,379,852 figure was
+  high by one token for each of 20,833 documents.
+- Final document indexes now come from DataTrove's exact shuffled indexes.
+  Token ID 2 remains the loader's position-reset signal, so literal `</s>` also
+  resets positions, but it is no longer misreported as a document boundary.
+- The schema-v2 shards hash-verified and loaded through the production training
+  dataset in a maximal global-batch-160 one-WARC view.
+
+Next:
+
+- Reconcile all ten pilot census manifests with the corrected token contract,
+  then materialize the remaining pilot prefix only if that additional
+  throughput/storage measurement will affect the full-inventory decision.
+
 ## 2026-08-14 [codex] Implement resumable raw-CC materialization
 
 Context:
